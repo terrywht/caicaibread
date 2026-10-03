@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酸种欧包配方优化与知识手册</title>
+<style>
+  :root{
+    --bg:#FAF9F5;--card:#FFFFFF;--line:rgba(0,0,0,.12);--line2:rgba(0,0,0,.28);
+    --tx:#2C2C2A;--tx2:#5F5E5A;--tx3:#888780;
+    --red:#A32D2D;--red-bg:#FCEBEB;--amber:#854F0B;--amber-bg:#FAEEDA;
+    --green:#3B6D11;--green-bg:#EAF3DE;--blue:#185FA5;--blue-bg:#E6F1FB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:56px 28px 80px}
+  header{border-bottom:1px solid var(--line2);padding-bottom:24px;margin-bottom:36px}
+  .kicker{font-size:13px;color:var(--tx3);letter-spacing:.08em;margin:0 0 10px}
+  h1{font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+  .sub{font-size:14px;color:var(--tx2);margin:0}
+  h2{font-size:18px;font-weight:600;margin:48px 0 14px;padding-left:12px;border-left:3px solid var(--tx)}
+  h3{font-size:15px;font-weight:600;margin:26px 0 8px}
+  h4{font-size:14px;font-weight:600;margin:20px 0 6px;color:var(--tx2)}
+  p{margin:0 0 14px}
+  ul,ol{margin:0 0 16px;padding-left:22px}
+  li{margin-bottom:7px}
+  strong{font-weight:600}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;
+    background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px}
+  table{width:100%;border-collapse:collapse;margin:16px 0 20px;font-size:14px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:rgba(0,0,0,.035);font-weight:600;font-size:13px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:20px 0}
+  .card p:last-child{margin-bottom:0}
+  .tag{display:inline-block;font-size:12px;font-weight:500;padding:2px 9px;border-radius:20px;margin-right:6px;vertical-align:1px}
+  .tag.red{background:var(--red-bg);color:var(--red)}
+  .tag.amber{background:var(--amber-bg);color:var(--amber)}
+  .tag.green{background:var(--green-bg);color:var(--green)}
+  .tag.blue{background:var(--blue-bg);color:var(--blue)}
+  .quote{border-left:3px solid var(--line2);padding:2px 0 2px 16px;margin:16px 0;color:var(--tx2);font-size:14px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+  .step h4{margin-top:0;color:var(--tx);font-size:15px}
+  .step .meta{font-size:13px;color:var(--tx3);margin:0 0 8px}
+  .hl{background:var(--amber-bg);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .hl p:last-child{margin-bottom:0}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--tx3)}
+  @media (max-width:640px){
+    .wrap{padding:32px 18px 56px}
+    table{font-size:13px}
+    th,td{padding:8px 9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">配方优化 · 面粉推荐 · 知识手册</p>
+  <h1>酸种欧包（90% 高筋 + 10% 黑麦）完整方案</h1>
+  <p class="sub">基于前两轮诊断结论修订 &nbsp;·&nbsp; 2026-09-28</p>
+</header>
+
+<h2>一、配方面粉层面的先决选择</h2>
+
+<p>先做一个决定：<strong>保 85% 水合换粉</strong>，还是<strong>保粉降水合</strong>。两条路都能走通。</p>
+
+<table>
+  <tr><th style="width:20%">方案</th><th>高筋粉</th><th>黑麦</th><th>主面团水量</th><th>适用</th></tr>
+  <tr><td><strong>A（推荐）</strong></td><td>90%（蛋白 13%+）</td><td>10%</td><td><strong>80%</strong></td><td>想尽快出稳定结果，操作难度可控</td></tr>
+  <tr><td><strong>B（进阶）</strong></td><td>90%（蛋白 13.5%+）</td><td>10%</td><td><strong>85%</strong></td><td>粉够强、折叠到位、追求极致开放组织</td></tr>
+</table>
+
+<p>其余参数一致：鲁邦种 20%、盐 2.0%。下文以方案 A 出完整配方。</p>
+
+<h2>二、烘焙百分比总表</h2>
+
+<table>
+  <tr><th style="width:40%">原料</th><th>烘焙百分比</th><th>备注</th></tr>
+  <tr><td>高筋粉（蛋白 13%+）</td><td>90%</td><td>见第四部分推荐</td></tr>
+  <tr><td>黑麦粉（T85 / T130）</td><td>10%</td><td>细磨黑麦，风味 + 灰分</td></tr>
+  <tr><td><strong>粉类合计</strong></td><td><strong>100%</strong></td><td></td></tr>
+  <tr><td><strong>鲁邦种（100% 水合）</strong></td><td><strong>20%</strong></td><td>其中含粉 10%、含水 10%</td></tr>
+  <tr><td>盐</td><td>2.0%</td><td></td></tr>
+  <tr><td>补加水</td><td><strong>70%</strong></td><td>与鲁邦种含水合计 80%</td></tr>
+</table>
+
+<div class="hl">
+  <p><strong>校验：</strong>总水合 = 鲁邦种内的 10% + 补加水 70% = <strong>80%</strong> ✓</p>
+  <p><strong>发酵种占粉比</strong> = 10%（鲁邦种内的粉）≈ 中等强度，配合 24℃ 暖温一发约 4–5 小时。</p>
+</div>
+
+<h2>三、物料表（方案 A）</h2>
+
+<h3>3.1 做 1 kg 粉</h3>
+<table>
+  <tr><th>原料</th><th>重量</th></tr>
+  <tr><td>高筋粉</td><td>450 g</td></tr>
+  <tr><td>黑麦粉</td><td>50 g</td></tr>
+  <tr><td>鲁邦种（100% 水合）</td><td>200 g</td></tr>
+  <tr><td>盐</td><td>20 g</td></tr>
+  <tr><td>补加水</td><td>350 g</td></tr>
+  <tr><td><strong>理论总面团</strong></td><td><strong>1070 g</strong></td></tr>
+</table>
+
+<p>发酵后约 880–920 g，可做 2 个 440 g 或 1 个 900 g。</p>
+
+<h3>3.2 单个 500 g 面团</h3>
+<table>
+  <tr><th>原料</th><th>重量</th></tr>
+  <tr><td>高筋粉</td><td>210 g</td></tr>
+  <tr><td>黑麦粉</td><td>23 g</td></tr>
+  <tr><td>鲁邦种</td><td>93 g</td></tr>
+  <tr><td>盐</td><td>9.3 g</td></tr>
+  <tr><td>补加水</td><td>163 g</td></tr>
+</table>
+
+<p><strong>方案 B（保 85%）：</strong>补加水改为 400 g（1 kg 粉）／ 186 g（500 g 面团），其余不变。</p>
+
+<h2>四、制作流程</h2>
+
+<div class="step">
+  <h4>阶段 0 · 养种（提前 8–12 小时）</h4>
+  <ul>
+    <li>鲁邦种按 1:5:5 或 1:4:4 喂一次</li>
+    <li><strong>在涨到约 2 倍、尚未回落时使用</strong>（上次用 2.5 倍偏熟，酸度高、面筋已开始弱化）</li>
+  </ul>
+</div>
+
+<div class="step">
+  <h4>阶段 1 · 水合（关键改动）</h4>
+  <ul>
+    <li>粉类 + <strong>全部水 + 全部盐</strong>混合成团，不见干粉即可</li>
+    <li><strong>冷藏 4℃ 静置 2–4 小时</strong>，也可室温 1 小时</li>
+    <li><strong>盐从"后期加"改为"水合时就加"</strong>——抑制蛋白酶，保护长水合中的面筋</li>
+  </ul>
+</div>
+
+<div class="step">
+  <h4>阶段 2 · 打面</h4>
+  <table>
+    <tr><th style="width:34%">项目</th><th>参数</th></tr>
+    <tr><td>目标出缸面温</td><td><strong>22–24℃</strong></td></tr>
+    <tr><td>水温计算</td><td><code>水温 = 4×目标面温 − (室温 + 粉温 + 种温 + 摩擦系数)</code></td></tr>
+    <tr><td>摩擦系数参考</td><td>立式/螺旋机中速 5 分钟约 +4–6℃；湿面团更低</td></tr>
+  </table>
+</div>
+
+<div class="step">
+  <h4>阶段 3 · 一发（最大改动：改为连续暖温）</h4>
+  <table>
+    <tr><th style="width:26%">时间点</th><th>操作</th><th>温度</th></tr>
+    <tr><td>0 min</td><td>出缸、整理成团</td><td>24℃</td></tr>
+    <tr><td>30 min</td><td><strong>折叠 1</strong></td><td>24℃</td></tr>
+    <tr><td>70 min</td><td><strong>折叠 2</strong></td><td>24℃</td></tr>
+    <tr><td>110 min</td><td><strong>折叠 3</strong></td><td>24℃</td></tr>
+    <tr><td>150 min</td><td><strong>折叠 4</strong></td><td>24℃</td></tr>
+    <tr><td>约 180 min</td><td>折叠 5（视面团强度决定）</td><td>24℃</td></tr>
+    <tr><td>至结束</td><td>静置发酵</td><td>24℃</td></tr>
+  </table>
+  <ul>
+    <li><strong>全部折叠都在室温下做，绝不要折叠 4℃ 的冷面团</strong></li>
+    <li><strong>一发总时长 4–5 小时</strong>（24℃、10% 种粉比经验区间）</li>
+    <li><strong>终点：体积增加 50–70%（1.5–1.75 倍）</strong></li>
+  </ul>
+</div>
+
+<h3>一发终点判断方法</h3>
+<table>
+  <tr><th style="width:30%">方法</th><th>说明</th></tr>
+  <tr><td><strong>小样瓶法（最推荐）</strong></td><td>取 30 g 面团装进小玻璃瓶标记初始高度，涨 60% 即为整形点。最客观，不受容器形状影响</td></tr>
+  <tr><td>容器标线</td><td>透明容器贴标线记高度</td></tr>
+  <tr><td>表面状态</td><td>细密小气泡、轻摇呈果冻晃动感</td></tr>
+  <tr><td>指压测试</td><td>缓慢回弹、留浅痕 = 刚好；快速回弹 = 不足；塌陷不回 = 过度</td></tr>
+</table>
+
+<p><strong>24℃ 下不同温度的目标涨幅参考：</strong>22℃ 可到 +60–75%；24℃ 目标 <strong>+50–60%</strong>（比低温更早收手，因为后续工序仍在继续发酵）；26℃ 只到 +40–50%；28℃ +30–40%。</p>
+
+<div class="step">
+  <h4>阶段 4 · 预整形与整形</h4>
+  <ul>
+    <li>预整形（轻收成圆）→ 台面静置 <strong>20–30 分钟</strong></li>
+    <li>最终整形入篮，<strong>收口捏紧</strong></li>
+    <li><strong>覆盖必须严密</strong>：篮口盖布/保鲜袋，防止冷藏时表面结皮（上次开耳不理想很可能与此有关）</li>
+  </ul>
+</div>
+
+<div class="step">
+  <h4>阶段 5 · 冷藏二发</h4>
+  <table>
+    <tr><th style="width:26%">项目</th><th>参数</th></tr>
+    <tr><td>温度</td><td>4℃</td></tr>
+    <tr><td>时长</td><td><strong>10–14 小时</strong></td></tr>
+    <tr><td>覆盖</td><td>必须严密防结皮</td></tr>
+    <tr><td>判断</td><td>轻按缓慢回弹；体积约 1.5 倍（冷藏中增长有限，别等涨很多）</td></tr>
+  </table>
+</div>
+
+<div class="step">
+  <h4>阶段 6 · 烘烤（基本保留原曲线）</h4>
+  <table>
+    <tr><th style="width:26%">阶段</th><th>设置</th><th>时长</th></tr>
+    <tr><td>预热</td><td>石板/铸铁锅充分预热</td><td>45 min 以上</td></tr>
+    <tr><td>入炉</td><td>300℃ 上下火，<strong>注入蒸汽 5 秒</strong></td><td>5 min</td></tr>
+    <tr><td>中段</td><td>上 250℃ / 下 270℃</td><td>15 min</td></tr>
+    <tr><td>收尾</td><td>上 250℃ / 下 230℃，开风门</td><td>3 min</td></tr>
+    <tr><td><strong>判据</strong></td><td><strong>中心温度 ≥96℃（理想 97–99℃）</strong></td><td>不足则 +3–5 min</td></tr>
+  </table>
+  <ul>
+    <li>蒸汽量<strong>不用改</strong>（Hamelman 标准 4–6 秒）</li>
+    <li>冷却：<strong>出炉后至少 1.5–2 小时</strong>再切</li>
+  </ul>
+</div>
+
+<h2>五、"85% 水合配 13%+ 粉"是怎么来的</h2>
+
+<p>它<strong>不是硬性规定</strong>，而是从三组数据推导出的经验法则。</p>
+
+<h3>5.1 推导链条</h3>
+
+<h4>① 蛋白含量 ↔ 吸水率正相关</h4>
+<p>面粉吸水率主要来自破损淀粉吸水 + 蛋白质与戊聚糖的水合能力。<strong>蛋白越高，能结合的游离水越多。</strong></p>
+
+<table>
+  <tr><th>蛋白含量</th><th>典型吸水率</th><th>适合水合区间</th></tr>
+  <tr><td>8–10%（弱筋）</td><td>50–55%</td><td>≤55%，多了成糊</td></tr>
+  <tr><td>11–12%（中高筋）</td><td>60–70%</td><td>65–75%</td></tr>
+  <tr><td>12–13.5%（面包粉）</td><td>65–78%</td><td>65–78%</td></tr>
+  <tr><td>13–15%（强筋/特高筋）</td><td>70–95%</td><td>75–85%+</td></tr>
+</table>
+
+<h4>② 高水合需要面筋网络"扛得住"</h4>
+<p>水多的本质是面团更软、延展性更强、气孔更大。但面团必须同时具备足够的<strong>强度（tenacity）</strong>，否则气孔壁撑不住就会合并、塌陷。85% 水合意味着面筋要在很稀的基质里维持住气孔。</p>
+
+<h4>③ 行业实践印证</h4>
+<p>Bread Flour（12–13.5%）常规水合区间 65–78%；要推到 80%+，实践上要么改用更高蛋白（Manitoba 类）的粉，要么用 coil fold、延长冷藏等手法补强。</p>
+
+<div class="hl">
+  <p><strong>更准确的表述：</strong>想稳定地在 85% 水合下得到开放组织，<strong>面粉的 W 值（面筋强度）比蛋白百分比更关键</strong>——大致对应 W 280–350（强筋级），蛋白一般落在 13% 以上。</p>
+</div>
+
+<h3>5.2 四种反例：它不适用于所有面包</h3>
+
+<table>
+  <tr><th style="width:26%">反例</th><th>原因</th></tr>
+  <tr><td>法棍 / T65 乡村包</td><td>T55/T65 蛋白仅约 10.5%，水合也能到 70–75%，靠的是<strong>灰分高、延展性好（P/L 偏低）+ 长时间发酵</strong>，不是靠蛋白</td></tr>
+  <tr><td>全麦 / 黑麦面包</td><td>麸皮和戊聚糖吸水性极强，<strong>表面吸水率很高但成筋能力弱</strong>。70% 全麦手感相当于 60% 白面。这类面包要<strong>降低</strong>水合或靠酸性环境稳结构</td></tr>
+  <tr><td>可颂 / 丹麦</td><td>蛋白仅 11–12%，水合 50–55%。这里<strong>故意要弱面筋</strong>，避免回缩、让层次展开</td></tr>
+  <tr><td>馒头包子</td><td>中筋粉 50–55% 水合，不在这个语境</td></tr>
+</table>
+
+<h3>5.3 更准确的判断框架</h3>
+
+<p><strong>水合上限 ≈ f（面筋强度 W、延展性 P/L、工艺强度、目标组织）</strong></p>
+
+<table>
+  <tr><th style="width:30%">变量</th><th>提高水合上限的加分项</th></tr>
+  <tr><td>面筋强度</td><td>W 值高（280+）、蛋白 13%+</td></tr>
+  <tr><td>延展性平衡</td><td>P/L 约 0.5（太高回缩，太低会摊）</td></tr>
+  <tr><td>工艺强度</td><td>更多次折叠、coil fold、lamination、低温长发酵</td></tr>
+  <tr><td>目标组织</td><td>要大孔开放组织可推高；要均匀细腻就别推高</td></tr>
+</table>
+
+<p><strong>你的具体情况：</strong>纯芯 11.9% + 10% 黑麦，有效成筋蛋白约 10.7%，W 值大致落在中弱区间（W 180–240 附近）——这就是 85% 对这套粉偏高的原因。<strong>要么换更强的粉，要么把水降到 78–80%，二选一。</strong></p>
+
+<h2>六、面粉推荐</h2>
+
+<p>先说明：<strong>面粉没有"最好"，只有"最匹配你的目标"</strong>。同品牌不同批次也有差异，最终以包装袋营养成分表为准。</p>
+
+<h3>6.1 第一推荐：高蛋白吐司粉 / 特高筋粉作为基粉</h3>
+
+<table>
+  <tr><th style="width:24%">面粉</th><th>蛋白</th><th>灰分</th><th>推荐理由</th></tr>
+  <tr><td><strong>王后 日式吐司粉</strong></td><td>13.8–14.1%</td><td>0.42%</td><td>与纯芯同为日系精制路线，但蛋白高一整档，吸水率可达 80%。<strong>风味表现最接近你现在的组合，替换最顺</strong></td></tr>
+  <tr><td><strong>昭和 先锋（特高筋粉）</strong></td><td>14.0%</td><td>0.42%</td><td>日系特高筋代表，面筋强、耐力好，<strong>搭配黑麦/全麦时最常用</strong>。想上 85%+ 水合的首选</td></tr>
+  <tr><td><strong>金像 面包粉</strong></td><td>13.7%</td><td>—</td><td>性价比高、国内易得，面筋强、弹性好，适合日常练习推高水合</td></tr>
+  <tr><td><strong>王后 柔风吐司粉</strong></td><td>13.2%</td><td>0.42–0.48%</td><td>蛋白适中、延展性好、操作宽容度高，<strong>往高水合过渡的稳妥选择</strong></td></tr>
+</table>
+
+<h3>6.2 第二推荐：T 系列路线（麦香更足）</h3>
+
+<table>
+  <tr><th style="width:24%">面粉</th><th>蛋白</th><th>灰分</th><th>说明</th></tr>
+  <tr><td><strong>王后 T65</strong></td><td>10.5%</td><td>0.65%</td><td>法式乡村包经典粉。蛋白低但延展好、麦香足。<strong>用 T65 时水合建议 72–75%，不要硬推 85%</strong></td></tr>
+  <tr><td><strong>日清 百合花（法国粉）</strong></td><td>10.7%</td><td>0.45%</td><td>法棍/乡村包常用，风味比 T65 更干净</td></tr>
+</table>
+
+<p><strong>黑麦部分：</strong>建议用 <strong>T85（细磨黑麦）</strong>走乡村包路线，风味清晰、对结构干扰小；T130 颗粒粗，10% 用量下影响不大但吸水更强。</p>
+
+<h3>6.3 推荐依据</h3>
+
+<ol>
+  <li><strong>蛋白含量：</strong>要 13%+ 支撑高水合，13.2–14% 是黄金区间；低于 13% 易塌陷，高于 14.5% 延展性变差、整形困难</li>
+  <li><strong>灰分：</strong>0.37–0.45% 是精制路线（组织细腻、风味干净）；要麦香就走 0.55–0.65%（T55/T65），代价是水合上限下降</li>
+  <li><strong>吸水率实测：</strong>王后日式吐司粉可达 80%，金像吐司粉约 75%，山茶花/金像普通高粉约 72%。<strong>吸水率越高，越能承接高水合</strong></li>
+  <li><strong>产地工艺：</strong>日系粉制粉精度高、出筋快、弹性好、组织细腻；国产粉更耐搅拌、膨胀性好、性价比高</li>
+  <li><strong>为什么不给唯一解：</strong>蛋白含量只说明"有多少蛋白"，不说明"蛋白质量如何"。<strong>同样标 13% 的两款粉，在高水合酸种里表现可能完全不同</strong>——因为 W 值和 P/L 平衡不同</li>
+</ol>
+
+<div class="hl">
+  <p><strong>实操建议：</strong>先用现有纯芯按方案 A（80% 水合）跑 2–3 炉，把发酵节奏和整形手法稳住；然后<strong>只换粉、不动其他参数</strong>再跑一炉（先试王后日式吐司粉），对比组织差异。这样能把"粉的影响"单独隔离出来，比一次性改三个变量高效得多。</p>
+</div>
+
+<h2>七、加入干性 / 湿性材料如何调整</h2>
+
+<h3>7.1 核心原则：两个维度</h3>
+
+<ol>
+  <li><strong>它会不会抢水？抢多少？</strong> → 决定要不要加水</li>
+  <li><strong>它会不会削弱面筋？削弱多少？</strong> → 决定要不要降水量或补强工艺</li>
+</ol>
+
+<h3>7.2 干性材料</h3>
+
+<table>
+  <tr><th style="width:22%">材料</th><th>建议用量<br>（占粉重）</th><th>水分调整</th><th>面筋影响</th><th>注意事项</th></tr>
+  <tr><td>核桃/榛子等坚果</td><td>10–15%</td><td>-3~-5%（高脂降低需水感知）</td><td>油脂削弱面筋、减缓发酵，膨胀略降</td><td><strong>先 160℃ 烘 6–10 分钟</strong>去表面水分，冷却再用</td></tr>
+  <tr><td>亚麻籽（粉）</td><td>5–10%，最多 20%</td><td><strong>每加 100% 亚麻籽加约 75% 水</strong>（10% 用量 → 水合 +8~10%）</td><td>吸水极强</td><td><strong>必须提前浸泡</strong>，否则抢走面团的水</td></tr>
+  <tr><td>奇亚籽/洋车前子</td><td>3–8%</td><td>吸水极强，<strong>先单独浸泡成胶再计入水量</strong></td><td>明显增稠</td><td>用量宁少勿多</td></tr>
+  <tr><td>果干（葡萄干/蔓越莓）</td><td>15–25%</td><td>-3~-5%</td><td>周围形成"糖渍区"，减弱局部面筋</td><td><strong>先泡软沥干</strong>（朗姆酒/水），否则局部干硬</td></tr>
+  <tr><td>可可粉/抹茶粉</td><td>5–10%</td><td>+5~+8%</td><td>可可脂削弱面筋，发酵变慢</td><td>需相应延长发酵</td></tr>
+  <tr><td>全麦/黑麦粉</td><td>替换 10–25%</td><td>+5~+10%</td><td>麸皮切割面筋，结构变弱</td><td>从 10% 起步，逐步增加</td></tr>
+  <tr><td>奶粉</td><td>3–6%</td><td>+3~+5%</td><td>乳蛋白弱化少量面筋</td><td>提升上色和风味</td></tr>
+</table>
+
+<h4>干性材料通用规则</h4>
+<ul>
+  <li>总量控制在 <strong>占粉重 20–25% 以内</strong>（坚果+果干合计），超过明显压制膨胀</li>
+  <li><strong>加入时机：第 2 或第 3 次折叠时。</strong>太早阻碍面筋形成并沉底，太晚会在整形时被割出来</li>
+  <li>手法：撒在面团表面，靠折叠裹入，或做一次 lamination。<strong>不要用力揉</strong></li>
+</ul>
+
+<h3>7.3 湿性材料</h3>
+
+<table>
+  <tr><th style="width:22%">材料</th><th>替换方式</th><th>换算与调整</th></tr>
+  <tr><td>鸡蛋</td><td>最多替换总水量 20–30%</td><td><strong>蛋液重量 × 0.7 = 等效水量</strong>（蛋约 30% 是固体）。例：50 g 蛋液 ≈ 35 g 水</td></tr>
+  <tr><td>牛奶</td><td>可 1:1 替换水</td><td>约 87–88% 是水；含乳糖→上色更快，含脂肪→面筋略弱</td></tr>
+  <tr><td>黄油</td><td>5–20% 占粉重</td><td>后加。<strong>每加 10% 黄油可减水 3~5%</strong>；黄油越多发酵越慢</td></tr>
+  <tr><td>橄榄油/植物油</td><td>3–10% 占粉重</td><td>湿性油直接计入液体重量，其余按 -3~5% 减水</td></tr>
+  <tr><td>蜂蜜/糖浆</td><td>5–15%</td><td>含 15–20% 水需计入液体；<strong>糖抢水并抑制酵母</strong>，超过 10% 建议延长发酵或减种</td></tr>
+  <tr><td>汤种/烫面</td><td>替换 5–15% 面粉</td><td>开水烫面（粉:水 ≈ 1:5），增加保水性。<strong>要相应减少主面团水量</strong></td></tr>
+  <tr><td>提高水合（无添加物）</td><td>每次 +2%</td><td><strong>一次只加 2 个百分点</strong>，观察能否承载，不行就退回</td></tr>
+</table>
+
+<h4>湿性材料通用规则</h4>
+<ul>
+  <li>新增液体重量<strong>直接计入总水重</strong>，再回头核对水合率是否在粉能承受的范围</li>
+  <li><strong>一次只改一个变量</strong>：要么改水合，要么换粉，不同时动</li>
+  <li>加了糖/油/奶后<strong>发酵会变慢</strong>：一发涨幅目标从 50–70% 略降到 40–60%，靠状态判断而非钟表</li>
+</ul>
+
+<h3>7.4 具体示例：核桃 + 蔓越莓版本（1 kg 粉）</h3>
+
+<table>
+  <tr><th style="width:30%">调整项</th><th>原值</th><th>新值</th><th>说明</th></tr>
+  <tr><td>高筋粉</td><td>450 g</td><td>450 g</td><td>不变</td></tr>
+  <tr><td>黑麦粉</td><td>50 g</td><td>50 g</td><td>不变</td></tr>
+  <tr><td>鲁邦种</td><td>200 g</td><td>200 g</td><td>不变</td></tr>
+  <tr><td>盐</td><td>20 g</td><td>20 g</td><td>不变</td></tr>
+  <tr><td>补加水</td><td>350 g</td><td><strong>330 g</strong>（-20 g，-5%）</td><td>果干带水、坚果带油</td></tr>
+  <tr><td>核桃（烘过）</td><td>—</td><td><strong>100 g</strong>（10%）</td><td>第 2 次折叠时加入</td></tr>
+  <tr><td>蔓越莓干（泡软沥干）</td><td>—</td><td><strong>150 g</strong>（15%）</td><td>第 3 次折叠时加入</td></tr>
+  <tr><td>一发目标涨幅</td><td>50–70%</td><td><strong>40–60%</strong></td><td>坚果油 + 果干糖减慢发酵</td></tr>
+</table>
+
+<h2>八、知识点总结</h2>
+
+<h3>8.1 面粉：看三个指标，不止蛋白</h3>
+
+<table>
+  <tr><th style="width:24%">指标</th><th>意义</th><th>你的配方对应</th></tr>
+  <tr><td><strong>蛋白质含量</strong></td><td>"有多少蛋白"，决定潜在筋力</td><td>纯芯 11.9%，混合后有效成筋蛋白 ≈10.7%</td></tr>
+  <tr><td><strong>W 值（面筋强度）</strong></td><td>"蛋白有多强"，决定能扛多高水合/多长发酵</td><td>纯芯属中弱区间，不支撑 85%</td></tr>
+  <tr><td><strong>P/L（延展性平衡）</strong></td><td>弹性 vs 延展性的平衡，0.5 最理想</td><td>太低会摊，太高会回缩</td></tr>
+  <tr><td><strong>灰分</strong></td><td>矿物质含量，决定风味与颜色</td><td>0.37% = 极精制、低风味、低酶</td></tr>
+</table>
+
+<p><strong>结论：蛋白含量不是唯一指标。同样标 13% 的粉，在高水合酸种里表现可能完全不同。</strong></p>
+
+<h3>8.2 温度：Q10 是理解发酵的钥匙</h3>
+
+<ul>
+  <li><strong>酵母活性 Q10 ≈ 2.2</strong>：温度每升 10℃，活性约翻倍；每降 10℃，约减半</li>
+  <li><strong>4℃ 的发酵速率 ≈ 24℃ 的 1/5</strong></li>
+  <li><strong>出缸面温</strong>目标 22–24℃，用 DDT 公式反推水温：<br>
+      <code>水温 = 4×目标面温 − (室温 + 粉温 + 种温 + 摩擦系数)</code></li>
+  <li>立式机中速 5 分钟摩擦约 +4–6℃</li>
+</ul>
+
+<h3>8.3 发酵：看状态，别看时间</h3>
+
+<table>
+  <tr><th style="width:30%">项目</th><th>参考</th></tr>
+  <tr><td>一发涨幅</td><td>24℃ 目标 <strong>+50–70%</strong>；温度越高越早收手</td></tr>
+  <tr><td>一发时长</td><td>24℃、10% 种粉比，约 <strong>4–5 小时</strong></td></tr>
+  <tr><td>最客观工具</td><td><strong>小样瓶法</strong>（取 30 g 装小瓶记高度）</td></tr>
+  <tr><td>指压测试</td><td>缓慢回弹留浅痕 = 刚好；快速回弹 = 不足；塌陷不回 = 过度</td></tr>
+  <tr><td>冷藏二发</td><td>4℃，10–14 小时；<strong>必须严密覆盖防结皮</strong></td></tr>
+</table>
+
+<p><strong>关键认知：</strong>低温不"暂停"发酵，只是减慢。所以"一发 12 小时"这种名义时长没有意义——<strong>衡量的是等效发酵量，不是钟表时间。</strong></p>
+
+<h3>8.4 折叠：数量、时机、温度</h3>
+
+<ul>
+  <li>高水合（80%+）需要 <strong>4–6 次</strong>折叠，间隔 30–40 分钟</li>
+  <li>覆盖<strong>发酵前 3–4 小时</strong>，不要全挤在开头</li>
+  <li><strong>绝不要折叠冷面团</strong>：冷面团面筋硬化，折叠等于撕裂；且冷面团不产气，压垮的气室无法重建</li>
+  <li>更高水合可用 <strong>coil fold（卷折）</strong>代替普通折叠，撕裂更小</li>
+</ul>
+
+<h3>8.5 蒸汽：4–6 秒，别更多</h3>
+
+<ul>
+  <li>Hamelman《Bread》第 3 版：<strong>入炉前后各注入一次，总体 4–6 秒是合适量</strong></li>
+  <li>蒸汽计量单位是<strong>总注入秒数</strong>，靠<strong>关风门</strong>把湿气留在炉内</li>
+  <li>作用：延缓表皮定型 → 提升入炉急胀；让表皮糊化有光泽；促进酶解产生上色</li>
+  <li><strong>过度蒸汽的后果：扁平、厚韧皮、割口不翻</strong></li>
+  <li>略发过头的面团<strong>反而应少给蒸汽</strong>，让表皮更快结皮防摊平</li>
+</ul>
+
+<h3>8.6 烘烤：用温度计，不用眼看</h3>
+
+<table>
+  <tr><th style="width:36%">面包类型</th><th>中心目标温度</th></tr>
+  <tr><td>酸种乡村面包</td><td><strong>96–99℃</strong>（205–210℉）</td></tr>
+  <tr><td>带馅/含脂吐司</td><td>88–93℃</td></tr>
+  <tr><td>贝果/小餐包</td><td>88–93℃</td></tr>
+</table>
+
+<ul>
+  <li><strong>核心温度到 91–93℃ 时面筋才完全凝固定型</strong>；高水合酸种需要更高</li>
+  <li>面包变棕比中心熟透<strong>快得多</strong>——看颜色会误判</li>
+  <li><strong>出炉后 1.5–2 小时再切</strong>，否则组织会被压塌、显得发黏</li>
+</ul>
+
+<h3>8.7 淀粉酶攻击（starch attack）</h3>
+
+<ul>
+  <li><strong>α-淀粉酶在淀粉糊化温度区间活性最高</strong>，会把已糊化的淀粉切成糊精</li>
+  <li>糊精化<strong>不可逆</strong>，出炉后再烤也救不回来 → 组织发亮、发黏、按压回粘</li>
+  <li><strong>黑麦风险更高</strong>：α-淀粉酶含量高、耐热，且黑麦淀粉糊化温度更低（50–60℃ 起）</li>
+  <li><strong>解法是酸</strong>：酸种产生的乳酸/醋酸降低 pH 抑制 α-淀粉酶——这是传统黑麦面包必须用酸种的结构性原因，不是风味偏好</li>
+  <li>黑麦的戊聚糖含量 <strong>6–9%</strong>（小麦仅 2–3%），抢水且包裹面筋阻碍交联 → 加黑麦必须减水或补强工艺</li>
+</ul>
+
+<h3>8.8 盐的三个作用</h3>
+
+<ol>
+  <li><strong>风味</strong>：面包的骨架味道</li>
+  <li><strong>收紧面筋</strong>：提升持气性和面团强度</li>
+  <li><strong>抑制蛋白酶</strong>：保护面筋不在长发酵中被分解</li>
+</ol>
+
+<p><strong>用量：</strong>1.8–2.2%；长发酵 + 黑麦建议 <strong>2.0%</strong>。<strong>水合阶段就加</strong>。</p>
+
+<h3>8.9 添加物的两个维度</h3>
+
+<ul>
+  <li><strong>抢水吗？</strong>抢水 → 加水（亚麻籽、可可粉、全麦粉）；带水/带油 → 减水（果干、油脂）</li>
+  <li><strong>削弱面筋吗？</strong>会 → 降水量或同时补强工艺（坚果、可可脂、糖）</li>
+  <li><strong>总量控制：</strong>坚果 + 果干合计 ≤ 粉重 20–25%</li>
+  <li><strong>加入时机：第 2–3 次折叠时</strong></li>
+</ul>
+
+<div class="hl">
+  <p><strong>一句话记忆：先算水，再算筋，最后算时机。</strong></p>
+</div>
+
+<h3>8.10 排查问题的固定顺序</h3>
+
+<div class="quote">
+  ① 酵母/酵种活性 → ② 温度（面温、环温）→ ③ 面筋（粉的强度 + 折叠）→ ④ 发酵时长与终点 → ⑤ 配方比例 → ⑥ 烘烤与冷却
+</div>
+
+<p>按这个顺序排查，能避免"改了一堆参数却不知道是哪个起的作用"。</p>
+
+<h2>九、参考依据</h2>
+
+<ul>
+  <li>Jeffrey Hamelman,《Bread: A Baker's Book of Techniques and Recipes》第 3 版，STEAM 章节</li>
+  <li>鸟越製粉「純芯」规格：粗蛋白 11.9%、灰分 0.37%</li>
+  <li>Chopin alveograph 体系：W（面筋强度）、P（韧性）、L（延展性）、P/L 平衡比</li>
+  <li>酸种乡村面包中心温度通行标准 96–99℃ / 205–210℉</li>
+  <li>黑麦 α-淀粉酶与 starch attack 机制；黑麦戊聚糖含量 6–9% vs 小麦 2–3%</li>
+  <li>酵母活性温度系数 Q10 ≈ 2.2；DDT（Desired Dough Temperature）计算公式</li>
+  <li>添加物用量与水分调整：坚果 8–15%、亚麻籽 5–10%（每 100% 加约 75% 水）、果干 15–25%、坚果+果干合计 ≤20–25%</li>
+  <li>面粉吸水率实测参考：王后日式吐司粉约 80%、金像吐司粉约 75%、山茶花/金像普通高粉约 72%</li>
+</ul>
+
+<footer>
+  本文档基于用户提供的工艺参数与两轮诊断结论整理，参考经典烘焙理论推导，仅供参考。面包发酵受温度、湿度、面粉批次、酵母状态等多种因素影响，最终请以实际面团状态与操作记录为准。配方中的百分比为理论值，实际吸水与发酵表现可能因批次差异而浮动，建议先用小批量验证。
+</footer>
+
+</div>
+</body>
+</html>

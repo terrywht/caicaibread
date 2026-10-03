@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酸种欧包 · 09-30 迭代操作卡</title>
+<style>
+  :root{
+    --bg:#FAF9F5;--card:#FFFFFF;--line:rgba(0,0,0,.12);--line2:rgba(0,0,0,.28);
+    --tx:#2C2C2A;--tx2:#5F5E5A;--tx3:#888780;
+    --red:#A32D2D;--red-bg:#FCEBEB;--amber:#854F0B;--amber-bg:#FAEEDA;
+    --green:#3B6D11;--green-bg:#EAF3DE;--blue:#185FA5;--blue-bg:#E6F1FB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:56px 28px 80px}
+  header{border-bottom:1px solid var(--line2);padding-bottom:24px;margin-bottom:36px}
+  .kicker{font-size:13px;color:var(--tx3);letter-spacing:.08em;margin:0 0 10px}
+  h1{font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+  .sub{font-size:14px;color:var(--tx2);margin:0}
+  h2{font-size:18px;font-weight:600;margin:48px 0 14px;padding-left:12px;border-left:3px solid var(--tx)}
+  h3{font-size:15px;font-weight:600;margin:26px 0 8px}
+  p{margin:0 0 14px}
+  ul,ol{margin:0 0 16px;padding-left:22px}
+  li{margin-bottom:7px}
+  strong{font-weight:600}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;
+    background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px}
+  table{width:100%;border-collapse:collapse;margin:16px 0 20px;font-size:14px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:rgba(0,0,0,.035);font-weight:600;font-size:13px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:20px 0}
+  .card p:last-child{margin-bottom:0}
+  .card h3{margin-top:0}
+  .tag{display:inline-block;font-size:12px;font-weight:500;padding:2px 9px;border-radius:20px;margin-right:6px;vertical-align:1px}
+  .tag.red{background:var(--red-bg);color:var(--red)}
+  .tag.amber{background:var(--amber-bg);color:var(--amber)}
+  .tag.green{background:var(--green-bg);color:var(--green)}
+  .tag.blue{background:var(--blue-bg);color:var(--blue)}
+  .hl{background:var(--amber-bg);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .hl p:last-child{margin-bottom:0}
+  .ok{background:var(--green-bg);border-left:3px solid var(--green);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .ok p:last-child{margin-bottom:0}
+  .fix{background:var(--red-bg);border-left:3px solid var(--red);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .fix p:last-child{margin-bottom:0}
+  .quote{border-left:3px solid var(--line2);padding:2px 0 2px 16px;margin:16px 0;color:var(--tx2);font-size:14px}
+  .timeline{list-style:none;padding:0;margin:18px 0}
+  .timeline li{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);margin:0;font-size:14px}
+  .timeline li:last-child{border-bottom:none}
+  .timeline .t{flex:0 0 96px;color:var(--tx3);font-variant-numeric:tabular-nums}
+  .timeline .a{flex:1}
+  .chk{list-style:none;padding:0;margin:14px 0}
+  .chk li{position:relative;padding-left:26px;margin-bottom:9px;font-size:14px}
+  .chk li::before{content:"";position:absolute;left:0;top:6px;width:12px;height:12px;
+    border:1.5px solid var(--line2);border-radius:3px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+  .two .card{margin:0}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--tx3)}
+  @media print{
+    body{background:#fff;font-size:11.5px;line-height:1.65}
+    .wrap{max-width:100%;padding:0}
+    h1{font-size:20px}
+    h2{font-size:15px;margin:26px 0 10px;page-break-after:avoid}
+    h3{font-size:13px;margin:16px 0 6px;page-break-after:avoid}
+    .card,.hl,.ok,.fix{page-break-inside:avoid;padding:12px 14px;margin:12px 0}
+    .two{page-break-inside:avoid}
+    table{page-break-inside:auto;font-size:11.5px}
+    th,td{padding:6px 8px}
+    tr{page-break-inside:avoid}
+    .timeline li{padding:5px 0}
+    @page{margin:12mm 11mm}
+  }
+  @media (max-width:640px){
+    .wrap{padding:32px 18px 56px}
+    .two{grid-template-columns:1fr}
+    table{font-size:13px}
+    th,td{padding:8px 9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">第七轮 · 实炉数据回收后的迭代方案 &nbsp;·&nbsp; 含 10-04 补录（二发温度换算）</p>
+  <h1>酸种欧包：09-30 迭代操作卡</h1>
+  <p class="sub">470 g 生重 ×2 &nbsp;·&nbsp; 铁塔法印 90% + 黑麦 10% &nbsp;·&nbsp; 含本轮撤回项与下一炉改动清单</p>
+</header>
+
+<div class="fix">
+  <p><strong>先更正一条我上一轮的推测</strong></p>
+  <p style="margin-top:8px">我上一轮推测"冷藏水合 2 小时让面团偏凉、<strong>出缸面温低于 24℃</strong>，导致一发偏慢"。这一条<strong>撤回</strong>。你实测出缸面温 <strong>23.8℃</strong>，落在酸种欧包的目标区间（23–26℃）正中，温度不是问题。</p>
+  <p style="margin-top:8px">一发偏慢的排查方向随之改为：鲁邦种活力 &gt; 接种量 &gt; 小样瓶读数可靠性。详见第三章。</p>
+</div>
+
+<h2>一、上一炉的账：数据核对</h2>
+
+<h3>1.1 配方核算</h3>
+
+<table>
+  <tr><th style="width:34%">项目</th><th style="width:22%">实测</th><th>说明</th></tr>
+  <tr><td>主面团粉</td><td>500 g</td><td>铁塔法印 450 g + 黑麦 50 g</td></tr>
+  <tr><td>鲁邦种（100% 水合）</td><td>100 g</td><td>含粉 50 g、含水 50 g</td></tr>
+  <tr><td>补加水</td><td>330 g</td><td>水合阶段加入（冷藏 2 h，含盐）</td></tr>
+  <tr><td>盐</td><td>10 g</td><td>占总粉 1.82%</td></tr>
+  <tr><td><strong>总粉</strong></td><td><strong>550 g</strong></td><td>500（主面团）+ 50（鲁邦种内）</td></tr>
+  <tr><td><strong>总水</strong></td><td><strong>380 g</strong></td><td>330（补加）+ 50（鲁邦种内）</td></tr>
+  <tr><td><strong>真水合率</strong></td><td><strong>69.1%</strong></td><td>380 ÷ 550 &nbsp;<span class="tag green">铁塔法印舒适区中段 68–75%</span></td></tr>
+  <tr><td>鲁邦种占比</td><td>18.2%</td><td>100 ÷ 550</td></tr>
+  <tr><td>总面团</td><td>940 g</td><td>→ 470 g × 2</td></tr>
+</table>
+
+<h3>1.2 发酵与烘烤数据</h3>
+
+<table>
+  <tr><th style="width:30%">环节</th><th style="width:26%">实测</th><th>评价</th></tr>
+  <tr><td>出缸面温</td><td>23.8℃</td><td><span class="tag green">正常</span>目标区间 23–26℃</td></tr>
+  <tr><td>鲁邦种状态</td><td>1:1:1 喂养，2 h 涨到 2 倍</td><td><span class="tag green">高活性年轻种</span>排除"种活力不足"</td></tr>
+  <tr><td>水合</td><td>冷藏 2 h，含盐</td><td><span class="tag green">正确</span></td></tr>
+  <tr><td>折叠</td><td>4 次，全室温，间隔 60 min</td><td><span class="tag amber">间隔偏长</span>见第二章</td></tr>
+  <tr><td>一发</td><td>5 h / 24℃</td><td><span class="tag amber">偏短</span>见第三章</td></tr>
+  <tr><td>一发终点</td><td>小样瓶 1.25×、面团 1.5×</td><td><span class="tag amber">两数不符，以瓶为准</span>偏短</td></tr>
+  <tr><td>冷藏二发</td><td>9 h，取出不回温</td><td><span class="tag amber">时长偏短</span>不回温<span class="tag green">正确</span></td></tr>
+  <tr><td>烘烤</td><td>21 min，470 g，未测中心温度</td><td><span class="tag amber">卡临界</span>无安全余量</td></tr>
+  <tr><td>冷却到切片</td><td>6 h</td><td><span class="tag green">充分</span></td></tr>
+</table>
+
+<div class="ok">
+  <p><strong>总体判断：这一炉是轻度欠发，但配方方向是对的。</strong></p>
+  <p style="margin-top:8px">两个欠发因素同向叠加（一发 +25% 未到 +50–60%；冷藏二发 9 h 未到 12 h）。而 69.1% 真水合正好落在铁塔法印的工作区间中段——这就是组织从"极不均匀"变成一个像样的面包的原因。</p>
+</div>
+
+<h2>二、折叠时机：60 分钟间隔的问题</h2>
+
+<p>按"出缸后 60 分钟折第 1 次、其后每 60 分钟一次"推演，折叠点在 <strong>60 / 120 / 180 / 240 分钟</strong>。而一发 5 小时整形——<strong>最后一次折叠到整形只剩 60 分钟</strong>。</p>
+
+<h3>2.1 当前排法 vs 建议排法</h3>
+
+<table>
+  <tr><th style="width:34%">时刻</th><th style="width:33%">当前（间隔 60 min）</th><th>建议（间隔 40 min）</th></tr>
+  <tr><td>0</td><td>出缸</td><td>出缸</td></tr>
+  <tr><td>30 min</td><td>—</td><td><strong>折叠 1</strong></td></tr>
+  <tr><td>60 min</td><td>折叠 1</td><td>—</td></tr>
+  <tr><td>70 min</td><td>—</td><td><strong>折叠 2</strong></td></tr>
+  <tr><td>110 min</td><td>—</td><td><strong>折叠 3</strong></td></tr>
+  <tr><td>120 min</td><td>折叠 2</td><td>—</td></tr>
+  <tr><td>150 min</td><td>—</td><td><strong>折叠 4</strong></td></tr>
+  <tr><td>180 min</td><td>折叠 3</td><td>—</td></tr>
+  <tr><td>240 min</td><td>折叠 4</td><td>—</td></tr>
+  <tr><td>150→300 min</td><td>—</td><td><strong>完全静置 150 min</strong></td></tr>
+  <tr><td>240→300 min</td><td><strong>仅静置 60 min</strong></td><td>—</td></tr>
+  <tr><td>300 min（5 h）</td><td>整形</td><td>整形</td></tr>
+</table>
+
+<h3>2.2 为什么</h3>
+
+<p>折叠的物理作用是"排气 + 重排气室"。排气之后，面团需要时间重新产气，并把新形成的小气室<strong>均匀分布开</strong>。两个方向都要顾：</p>
+
+<ul>
+  <li><strong>最后一次折叠离整形太近</strong>（你只有 60 min）→ 气室来不及重建和重排，整形时又排一次气，组织会偏紧、偏实。</li>
+  <li><strong>间隔 60 min 偏长</strong> → 两次折叠之间积累的大气泡太多，折叠时被压碎得<strong>不均匀</strong>，容易残留个别大气孔。上一炉中段那几个偏大的合并气孔，这是候选成因之一。</li>
+</ul>
+
+<div class="hl">
+  <p><strong>三条硬规则</strong></p>
+  <p style="margin-top:8px">① 第 1 次折叠不早于出缸后 25–30 分钟——面筋还紧的时候折是<strong>撕裂</strong>，不是拉伸；<br>
+  ② 间隔稳定在 30–40 分钟，不要拉到 60；<br>
+  ③ 所有折叠集中在一发的前 1/2–2/3，<strong>最后一次折叠到整形至少留 1.5–2 小时</strong>。</p>
+</div>
+
+<h3>2.3 三种折叠手法</h3>
+
+<p>中文烘焙资料里这几个名字混用严重，<strong>以动作为准，不要纠结名字</strong>：</p>
+
+<table>
+  <tr><th style="width:26%">名字</th><th style="width:46%">动作</th><th>折完</th></tr>
+  <tr>
+    <td><strong>三折 / 信折</strong><br><span style="color:#888780;font-size:12px">letter fold</span></td>
+    <td>左边 1/3 折到中间，右边 1/3 再折过来盖上</td>
+    <td>3 层，宽度剩 1/3</td>
+  </tr>
+  <tr>
+    <td><strong>四边往中间折</strong><br><span style="color:#888780;font-size:12px">信封折 / envelope fold</span></td>
+    <td>四条边分别折向中心</td>
+    <td>中心叠 4 层</td>
+  </tr>
+  <tr>
+    <td><strong>卷折</strong><br><span style="color:#888780;font-size:12px">coil fold</span></td>
+    <td>双手从底部托起 → 两端因重力垂落 → 翻转手腕折进底部</td>
+    <td>整团收拢</td>
+  </tr>
+</table>
+
+<svg viewBox="0 0 680 340" width="100%" role="img" style="display:block;max-width:660px;margin:18px auto;height:auto" xmlns="http://www.w3.org/2000/svg">
+<title>三折与四边往中间折的对比</title>
+<desc>左侧为三折：左边三分之一与右边三分之一分别折向中间，最后叠成三层；右侧为四边往中间折：四条边分别折向中心，中心叠四层</desc>
+<defs>
+  <marker id="arrowA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+<text x="60" y="56" font-size="14" font-weight="500" fill="#2C2C2A" font-family="system-ui,sans-serif">三折 · letter fold</text>
+<text x="400" y="56" font-size="14" font-weight="500" fill="#2C2C2A" font-family="system-ui,sans-serif">四边往中间折 · 信封折</text>
+<rect x="60" y="76" width="220" height="220" rx="8" fill="#E6F1FB" stroke="#85B7EB" stroke-width="0.5"/>
+<rect x="133.3" y="76" width="73.4" height="220" fill="#85B7EB"/>
+<line x1="133.3" y1="76" x2="133.3" y2="296" stroke="#185FA5" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="206.7" y1="76" x2="206.7" y2="296" stroke="#185FA5" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="96" y="98" text-anchor="middle" font-size="12" fill="#042C53" font-family="system-ui,sans-serif">先折</text>
+<text x="170" y="98" text-anchor="middle" font-size="12" fill="#042C53" font-family="system-ui,sans-serif">不动</text>
+<text x="243" y="98" text-anchor="middle" font-size="12" fill="#042C53" font-family="system-ui,sans-serif">后折</text>
+<path d="M 96 162 L 158 162" fill="none" stroke="#0C447C" stroke-width="1.5" marker-end="url(#arrowA)"/>
+<path d="M 244 212 L 182 212" fill="none" stroke="#0C447C" stroke-width="1.5" marker-end="url(#arrowA)"/>
+<rect x="400" y="76" width="220" height="220" rx="8" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.5"/>
+<rect x="473.3" y="149.3" width="73.4" height="73.4" fill="#EF9F27"/>
+<line x1="473.3" y1="76" x2="473.3" y2="296" stroke="#854F0B" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="546.7" y1="76" x2="546.7" y2="296" stroke="#854F0B" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="400" y1="149.3" x2="620" y2="149.3" stroke="#854F0B" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="400" y1="222.7" x2="620" y2="222.7" stroke="#854F0B" stroke-width="0.5" stroke-dasharray="4 3"/>
+<path d="M 510 116 L 510 145" fill="none" stroke="#633806" stroke-width="1.5" marker-end="url(#arrowA)"/>
+<path d="M 510 256 L 510 227" fill="none" stroke="#633806" stroke-width="1.5" marker-end="url(#arrowA)"/>
+<path d="M 436 186 L 469 186" fill="none" stroke="#633806" stroke-width="1.5" marker-end="url(#arrowA)"/>
+<path d="M 584 186 L 551 186" fill="none" stroke="#633806" stroke-width="1.5" marker-end="url(#arrowA)"/>
+<text x="170" y="320" text-anchor="middle" font-size="12" fill="#5F5E5A" font-family="system-ui,sans-serif">折完 3 层，宽度剩 1/3</text>
+<text x="510" y="320" text-anchor="middle" font-size="12" fill="#5F5E5A" font-family="system-ui,sans-serif">中心叠 4 层，边长剩 1/3</text>
+</svg>
+
+<h4>三折的动作要点</h4>
+
+<ol>
+  <li><strong>手蘸水，不撒粉</strong>。撒粉会把干粉揉进面团，等于变相降低水合率。</li>
+  <li>面团在台面上<strong>先轻轻摊成方形</strong>——不是用手扯，而是两手从两侧底下托起、靠重力自然伸开。</li>
+  <li><strong>左 1/3 折到中间</strong>：捏住左边缘，先向上提一段再折下。<strong>这一步是分水岭</strong>——"提起来折"和"直接翻过来"的区别，就是面筋被<strong>拉伸</strong>还是仅被<strong>折叠</strong>。</li>
+  <li><strong>右 1/3 折过来盖上</strong>。</li>
+  <li><strong>下一次折叠把面团转 90°</strong>。4 次折叠正好覆盖四个方向，这是让气孔分布均匀的一招。</li>
+</ol>
+
+<p><strong>三个通病</strong>：① <strong>按压</strong>——折完用手掌压下去，气泡全排掉，折完就放着；② <strong>硬扯</strong>——面筋没松弛就拉会撕裂，这正是第 1 次折叠要等 25–30 分钟的原因；③ <strong>方向单一</strong>——每次从同一方向折，只有一个方向被强化，烘焙膨胀时朝弱的方向跑。</p>
+
+<h4>四边往中间折：四向均衡，但排气最狠</h4>
+
+<p>上边往下折 1/3 到中间、下边往上、左边往右、右边往左，中心叠成 4 层。<strong>优点是四个方向受力完全均衡；缺点是四条边就是四次折叠动作，气被排得最干净</strong>。适合"面团软塌、需要硬拉张力"的场合，<strong>不适合想要开放气孔的场合</strong>。本配方的 69% 水合不推荐用它。</p>
+
+<h4>卷折：面团全程不离开盆</h4>
+
+<svg viewBox="0 0 680 225" width="100%" role="img" style="display:block;max-width:660px;margin:18px auto;height:auto" xmlns="http://www.w3.org/2000/svg">
+<title>卷折的两个动作阶段</title>
+<desc>左格：双手从面团底部托起，两端因重力向下垂落成拱形；右格：翻转手腕把两端折进面团底部，面团收拢成团</desc>
+<defs>
+  <marker id="arrowB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+<text x="60" y="56" font-size="14" font-weight="500" fill="#2C2C2A" font-family="system-ui,sans-serif">托起 → 两端垂落</text>
+<text x="380" y="56" font-size="14" font-weight="500" fill="#2C2C2A" font-family="system-ui,sans-serif">翻转手腕 → 折进底部</text>
+<path d="M 110 110 C 110 185 140 205 180 205 C 220 205 250 185 250 110 L 230 110 C 230 170 210 185 180 185 C 150 185 130 170 130 110 Z" fill="#E6F1FB" stroke="#85B7EB" stroke-width="0.5"/>
+<rect x="98" y="88" width="26" height="20" rx="5" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<rect x="236" y="88" width="26" height="20" rx="5" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<ellipse cx="500" cy="150" rx="58" ry="42" fill="#E6F1FB" stroke="#85B7EB" stroke-width="0.5"/>
+<path d="M 454 142 C 472 162 528 162 546 142" fill="none" stroke="#85B7EB" stroke-width="0.5"/>
+<path d="M 460 168 C 478 186 522 186 540 168" fill="none" stroke="#85B7EB" stroke-width="0.5"/>
+<path d="M 448 108 Q 460 190 494 192" fill="none" stroke="#0C447C" stroke-width="1.5" marker-end="url(#arrowB)"/>
+<path d="M 552 108 Q 540 190 506 192" fill="none" stroke="#0C447C" stroke-width="1.5" marker-end="url(#arrowB)"/>
+</svg>
+
+<ol>
+  <li>手蘸水。双手从面团<strong>两侧的底部伸进去</strong>，掌心朝上托住面团。</li>
+  <li><strong>整块抬起来</strong>。</li>
+  <li>面团两端因重力<strong>自然向下垂</strong>，形成拱形。</li>
+  <li><strong>翻转手腕</strong>——注意不是"放下再折"，而是靠手腕的旋转让垂下的两端<strong>折进面团底部</strong>。</li>
+  <li>放回盆里。面团会自己摊开一点，这是正常的。</li>
+</ol>
+
+<p>卷折的<strong>排气量在三种里最少</strong>，所以做出来的组织最开放。最大优势是<strong>面团全程不转移</strong>——75% 以上的高水合面团软到没法铲到台面，卷折几乎是唯一可行的选择。</p>
+
+<h4>次数：三种手法不能直接换算</h4>
+
+<p>"一次"的定义不同：三折的一次 = 左折 + 右折；信封折的一次 = 四边各折一次；<strong>卷折的一次 = 托起 → 垂落 → 折入的完整一轮</strong>。</p>
+
+<table>
+  <tr><th style="width:30%">真水合率</th><th style="width:26%">卷折组数</th><th>间隔</th></tr>
+  <tr><td>65–70%（你现在）</td><td><strong>3–4 组</strong></td><td>30–40 分钟</td></tr>
+  <tr><td>71–76%</td><td>4–5 组</td><td>30–40 分钟</td></tr>
+  <tr><td>77% 以上</td><td>5–6 组</td><td>30–45 分钟</td></tr>
+</table>
+
+<div class="ok">
+  <p><strong>次数只是起点，真正的判据是面团状态</strong></p>
+  <p style="margin-top:8px">① 折完 30–40 分钟后，面团<strong>还立着、边缘不塌</strong> → 不用再折；<br>
+  ② 面团<strong>明显摊平、边缘变扁、表面发亮</strong> → 折一次；<br>
+  ③ <strong>一发过了 2/3 时间</strong> → 无论状态如何都停止，留出静置。这比记数字可靠得多。</p>
+</div>
+
+<div class="hl">
+  <p><strong>本配方（69% 真水合）用三折，不用卷折</strong></p>
+  <p style="margin-top:8px">卷折的核心优势是"面团不用转移"，而 69% 的面团能立住、好转移，用卷折反而浪费了它的支撑力——面团偏硬时提起来垂落的幅度小，靠重力拉伸的效果打折。<strong>三折的拉伸反馈更明确（你能直接感觉到面筋有没有被拉开）</strong>，更适合这个水合度。</p>
+  <p style="margin-top:8px">次数：<strong>4 次，间隔 30–40 分钟，每次转 90°</strong>。等水合推到 <strong>76% 以上</strong>，再换卷折 4–5 组。</p>
+</div>
+
+<div class="hl">
+  <p><strong>还缺一个数据：第 1 次折叠是在出缸后多少分钟？</strong>这决定了整改是"整体后移"还是"整体前移"。</p>
+</div>
+
+<h2>三、一发偏慢：排查顺序与加种方案</h2>
+
+<div class="fix">
+  <p><strong>本节前提已更正（09-30 晚）</strong></p>
+  <p style="margin-top:8px">我原先把"鲁邦种可能用过峰值"列为嫌疑第一位。这个判断有两个错误：</p>
+  <p style="margin-top:8px">① <strong>数据张冠李戴</strong>——"涨到 2.5 倍、不确定是否回落"这句话是你在<strong>第一炉</strong>说的，我把它直接搬到了 09-30 这一炉上，中间没有向你确认。这是我的方法错误。</p>
+  <p style="margin-top:8px">② <strong>事实相反</strong>——09-30 这一炉用的是 <strong>1:1:1 喂养、2 小时涨到 2 倍的种</strong>，是高活性的年轻种。</p>
+  <p style="margin-top:8px">该判断<strong>撤回</strong>，排查顺序已重排。</p>
+</div>
+
+<h3>3.1 为什么"种活力不足"这条被排除</h3>
+
+<p><strong>1:1:1（原种 : 水 : 粉）是 33% 的接种率，属于最激进的喂养比例。</strong>这种比例下，常规种在 24℃ 通常需要 <strong>3–5 小时</strong>才涨到 2 倍。你 <strong>2 小时就达到</strong>——属于偏快，说明活性强，或者喂养环境温度偏高（可能 26–28℃）。</p>
+
+<p>加上你是在<strong>上升到 2 倍时取用</strong>，处于上升期到峰值附近的窗口，不是饥饿状态。<strong>这条嫌疑排除。</strong></p>
+
+<h3>3.2 顺手确认一件事："2 倍"是不是此刻的峰值</h3>
+
+<p>1:1:1 喂养的种，峰值涨幅取决于活性，一般 <strong>2–2.5 倍</strong>。你在 2 倍取用，有可能还差一点到峰。</p>
+
+<p>下次顺手做一次：<strong>涨到 2 倍后先别动，每 30 分钟量一次高度</strong>——</p>
+
+<ul>
+  <li>还在涨 → 2 倍不是峰值，你之前取用偏早</li>
+  <li>不涨了 → 2 倍就是这次的峰值，取用时机正确</li>
+</ul>
+
+<p>这不是"回落"的问题，是从"峰值稍前"精确到"峰值本身"。但也要说清楚：<strong>从 2 倍到过峰值的窗口可能只有 1 小时左右</strong>，卡不准反而容易过头。所以<strong>在 2 倍时取用是完全可接受的做法</strong>，不必为此改流程。</p>
+
+<h3>3.3 排查顺序（重排后）</h3>
+
+<table>
+  <tr><th style="width:26%">候选</th><th style="width:38%">为什么怀疑</th><th>怎么验证</th></tr>
+  <tr>
+    <td><strong>小样瓶读数</strong></td>
+    <td>同时给了 1.25×（瓶）和 1.5×（面团），差 20 个百分点。这两个数不该差这么多</td>
+    <td>换直筒瓶、装 1/3–1/2、和主面团放同一位置重测</td>
+  </tr>
+  <tr>
+    <td><strong>折叠节奏干扰读数</strong></td>
+    <td>4 次折叠间隔 60 分钟，末次折叠到整形只剩 1 小时——这一小时面团是从"折叠后的体积低点"重新膨起的，此时量体积当然偏小</td>
+    <td>把末次折叠提前到整形前 2 小时；或改看手感</td>
+  </tr>
+  <tr>
+    <td><strong>种与面团混匀不足</strong></td>
+    <td>330 g 水是冷藏 2 小时的（面团约 5–8℃），加种后要到 23.8℃ 出缸，打面时间如果偏短，种未必完全匀开</td>
+    <td>出缸时拉一块面团看能否拉出薄膜；成品面团颜色质地应完全均匀、看不到种</td>
+  </tr>
+  <tr>
+    <td><strong>接种量 18.2% 偏低</strong></td>
+    <td>18% 在酸种欧包里属中等偏低，配合"5 小时"这个目标确实偏紧</td>
+    <td>直接加量试，见 3.4</td>
+  </tr>
+  <tr>
+    <td>69% 低水合的体积响应保守</td>
+    <td>低水合面团气体保留其实更好，但结构更硬、膨胀阻力更大，同样发酵程度看体积偏小。<strong>经验规律，非精确定量</strong></td>
+    <td>以手感为主判据</td>
+  </tr>
+</table>
+
+<h3>3.4 处理顺序（因种被排除而改变）</h3>
+
+<p><strong>上一版把"加种"排在第二，理由是"加量只是把疲软种乘以更大倍数"。既然种是好的，这个反对理由就不成立了——加量现在是直接的加速手段。</strong></p>
+
+<div class="card">
+  <h3>首选 · 加种到 120–125 g</h3>
+  <p>21–23%，仍用 5 小时一发。这是最直接、最可控的加速方式，且不与任何其他变量冲突。补加水同减至 327 g（见 3.5）。</p>
+  <h3>同级别选择 · 只延长一发</h3>
+  <p>5 h → <strong>6.5–7 h</strong>，配方不改。适合你想看"这个配方在充分发酵下能到什么水平"的时候。69% 水合的面团本来就涨得慢，小样瓶到 +25% 时还在加速段，不是平台段。</p>
+  <h3>需要时 · 上 150 g</h3>
+  <p>150 g = 26.1%，在常规区间（20–30%）内，安全。代价是<strong>酸度上升 → pH 下降 → 蛋白酶活性上升 → 面筋变弱</strong>，组织更紧、风味更酸。对 W200 的铁塔法印配 69% 水合，26% 已在区间上沿——不是不能做，是没必要一步到位。</p>
+  <p style="margin-top:10px"><strong>但无论选哪条，一次只改一个变量。</strong></p>
+</div>
+
+<h3>3.5 加种换算表（注意：加种会同时改水合率）</h3>
+
+<p>鲁邦种里一半是水，加种必然抬升水合率。要保持真水合 69.1% 不变，<strong>补加水必须同步减</strong>：</p>
+
+<table>
+  <tr><th style="width:40%">项目</th><th>现在（100 g）</th><th>120 g</th><th>150 g</th></tr>
+  <tr><td>鲁邦种占总粉</td><td>18.2%</td><td>21.4%</td><td>26.1%</td></tr>
+  <tr><td>主面团粉</td><td>500 g</td><td>500 g</td><td>500 g</td></tr>
+  <tr><td>总粉</td><td>550 g</td><td>560 g</td><td>575 g</td></tr>
+  <tr><td><strong>补加水</strong>（维持 69.1%）</td><td><strong>330 g</strong></td><td><strong>327 g</strong></td><td><strong>322 g</strong></td></tr>
+  <tr><td>盐（总粉 2.0%）</td><td>11.0 g</td><td>11.2 g</td><td>11.5 g</td></tr>
+  <tr><td>总面团</td><td>940 g</td><td>958 g</td><td>984 g</td></tr>
+  <tr><td>每只（做 2 只）</td><td>470 g</td><td>479 g</td><td>492 g</td></tr>
+</table>
+
+<h3>3.6 小样瓶的正确用法</h3>
+
+<p>你同时给了 <strong>1.25×（小样瓶）和 1.5×（主面团）</strong>，差了 20 个百分点。这两个数<strong>不该差这么多</strong>——差异本身就是线索：要么主面团是目测高估（盆里根本看不准），要么小样瓶被约束了（瓶口太窄、装得太满、或放在偏凉的角落）。</p>
+
+<ul>
+  <li>用直筒窄口瓶，面团结成柱状</li>
+  <li>装到瓶高 1/3–1/2，<strong>不要装满</strong></li>
+  <li>敲瓶底排掉空隙，量准初始高度并做记号</li>
+  <li>放在和主面团<strong>同一个位置</strong></li>
+  <li>用尺子量，不要目测</li>
+</ul>
+
+<div class="ok">
+  <p><strong>对 69% 这种偏硬的面团，手感比小样瓶更可信</strong></p>
+  <p style="margin-top:8px">① 表面拱起、有起伏的小泡；② 轻晃盆，面团整体晃动；③ 手指蘸水轻按，留下的凹陷<strong>回弹 60–70%</strong>，而不是全部弹回。</p>
+</div>
+
+<h2>四、冷藏二发局部结皮：成因与预防</h2>
+
+<h3>4.1 机制</h3>
+
+<p>冰箱是<strong>干冷环境</strong>。风冷/无霜冰箱靠风扇强制循环，相对湿度常年只有 30–50%，而面团在 4℃ 下的表面平衡湿度远高于此——只要表面接触流动空气，就会持续失水。水一跑，表层淀粉和蛋白质脱水固化，形成一层<strong>延展性差的硬壳</strong>。</p>
+
+<h3>4.2 三个失水漏洞</h3>
+
+<table>
+  <tr><th style="width:26%">环节</th><th>具体表现</th></tr>
+  <tr><td><strong>覆盖方式</strong></td><td>保鲜膜没贴合留了缝；用棉布/亚麻布（布本身吸水，且布与面团之间的空隙在冷藏里等于"第二层干燥腔"）；发酵篮的布太干</td></tr>
+  <tr><td><strong>入篮前表面状态</strong></td><td>预整形到整形之间暴露在室温空气里；撒粉偏多（粉把表面水吸走）；表面褶皱积粉处含水率天然更低</td></tr>
+  <tr><td><strong>冰箱位置</strong></td><td>靠近出风口那一侧风速最大。一次烤两只若放在同一层，<strong>靠风口那只更严重</strong></td></tr>
+</table>
+
+<p><strong>为什么是"局部"而不是整圈</strong>：冰箱内部湿度/风速不均 + 覆盖物某一角翘起 + 面团表面本身厚薄不均，三者叠加。</p>
+
+<h3>4.3 它造成的两个后果</h3>
+
+<ul>
+  <li>结皮处含水率低、延展性差 → 入炉后<strong>不能参与急胀</strong>，割口只能被"推开"不能"翻开" → 这是"开口宽而平"的<strong>放大器</strong>（主因仍是一发偏短）</li>
+  <li>结皮处更早进入焦化温度 → <strong>上色深浅不均的深色斑块</strong>。上一炉的深斑很不对称，这条嫌疑不小</li>
+</ul>
+
+<h3>4.4 预防（按有效性排序）</h3>
+
+<ul class="chk">
+  <li><strong>换覆盖方式：用袋子套整个发酵篮。</strong>连篮带面团装进大号密封袋（或食品级塑料袋），挤出空气扎紧，外面再套一层。比保鲜膜可靠得多。</li>
+  <li>非要用布：<strong>布要微湿</strong>，且布外面再罩袋子。干布就是吸水器。</li>
+  <li><strong>避开出风口</strong>，或放进冰箱的蔬菜保鲜抽屉（湿度更高）。</li>
+  <li><strong>缩短"取出到入炉"的窗口</strong>：烤箱预热完成后再取面团，取出 → 割 → 入炉 ≤ 3 分钟。</li>
+  <li>表面撒粉只撒薄薄一层，集中在篮底和两侧，别撒在顶面。</li>
+</ul>
+
+<h3>4.5 补救</h3>
+
+<p>若发现已经结皮：用<strong>微湿的厨房纸轻按</strong>（不是擦）结皮处，或喷壶在表面轻喷一层细雾，静置 1–2 分钟回软再割。但要清楚：<strong>只能救表层，救不回内部的含水率</strong>；喷太多会破坏割口翻边，一两下就够。这是经验做法，不是实验数据。</p>
+
+<div class="hl">
+  <p><strong>反直觉的一条</strong>：冷藏二发不是越久越容易结皮，是<strong>覆盖越差越容易结皮</strong>。你这次只有 9 小时（本来就偏短），说明问题出在覆盖上，不在时长上。</p>
+</div>
+
+<h2>五、冷藏二发：温度—时长等效换算（4℃ ↔ 6.5℃）</h2>
+
+<p style="font-size:13px;color:#888780;margin-bottom:16px">2026-10-04 补录 · 回答"4℃ 14 小时改成 6.5℃ 该怎么调"</p>
+
+<p>结论先给：<strong>6.5℃ 下改成 11 小时（区间 10–12 h）</strong>。下面是算式、边界条件，以及这个模型不可靠的地方。</p>
+
+<h3>5.1 换算依据：Q10 温度系数</h3>
+
+<p>酵母代谢速率随温度上升，常用 <strong>Q10 温度系数</strong>描述：温度每升高 10℃，速率约变 <strong>2.2 倍</strong>（Q10 ≈ 2.2）。这是在 5–30℃ 区间通行的经验值。</p>
+
+<p>由 4℃ 到 6.5℃，温差 2.5℃：</p>
+
+<p><code>速率比 = Q10^(ΔT÷10) = 2.2^(2.5÷10) = 2.2^0.25 ≈ 1.22</code></p>
+
+<p>速率快 1.22 倍，那么达到<strong>同一个发酵程度</strong>所需时间就要除以 1.22：</p>
+
+<p><code>等效时长 = 14 h ÷ 1.22 ≈ 11.5 h</code></p>
+
+<table>
+  <tr><th style="width:34%">Q10 取值</th><th style="width:22%">速率比</th><th>14 h 的等效时长</th></tr>
+  <tr><td>2.0（保守）</td><td>1.19×</td><td>11.8 h</td></tr>
+  <tr><td><strong>2.2（常用）</strong></td><td><strong>1.22×</strong></td><td><strong>11.5 h</strong></td></tr>
+  <tr><td>2.5（激进）</td><td>1.26×</td><td>11.1 h</td></tr>
+</table>
+
+<p>换成好记的一句话：<strong>冷藏二发温度每升高 1℃，时长大约减少 8%</strong>（× 0.92）。</p>
+
+<table>
+  <tr><th style="width:40%">4℃ 下</th><th>6.5℃ 下的等效时长</th></tr>
+  <tr><td>10 h</td><td>约 8 h</td></tr>
+  <tr><td>12 h</td><td>约 10 h</td></tr>
+  <tr><td><strong>14 h</strong></td><td><strong>11–12 h</strong></td></tr>
+</table>
+
+<h3>5.2 建议值</h3>
+
+<div class="ok">
+  <p><strong>6.5℃ 下二发改做 11 小时（区间 10–12 h）。</strong></p>
+  <p style="margin-top:8px">建议从 <strong>11 h</strong> 起试，并且在 <strong>10 h 时先看一次状态</strong>，不要照搬 11.5 h。</p>
+</div>
+
+<h3>5.3 ⚠️ 但这个模型可能低估了加速幅度</h3>
+
+<p>4℃ 已经很接近酵母的低温抑制区。酿酒酵母在 4℃ 附近膜流动性下降、冷激蛋白表达，代谢受抑<strong>比 Q10 外推的更严重</strong>。也就是说，从 4℃ 提到 6.5℃，实际加速可能<strong>大于</strong> 1.22 倍，等效时长可能<strong>短于</strong> 11 小时。</p>
+
+<p>把 Q10 放大到 3.0 甚至 4.0 试算：3.0 → 10.6 h；4.0 → 9.9 h。所以 <strong>10–12 小时是个安全的框</strong>，不会错太多。</p>
+
+<div class="hl">
+  <p><strong>这一段是推测，不是实测。</strong>真正的答案只能靠你自己那一炉的状态来回推——这也是下面 5.6 要讲终点判据的原因。</p>
+</div>
+
+<h3>5.4 6.5℃ 还会带来什么变化</h3>
+
+<table>
+  <tr><th style="width:20%">项目</th><th>变化</th><th style="width:20%">可信度</th></tr>
+  <tr>
+    <td>风味方向</td>
+    <td>低温慢发偏向醋酸（酸味尖锐），温度抬高偏向乳酸（柔和）。4→6.5℃ 会让酸感略柔和；但总时长缩短约 18%，总酸量反而略减，<strong>两者部分抵消</strong></td>
+    <td><span class="tag amber">经验规律</span>证据强度中等</td>
+  </tr>
+  <tr>
+    <td>上色</td>
+    <td>单位时间酶活性高（+22%），但作用时间短（−18%），<strong>净效应接近抵消</strong>，预计上色差异不大。若观察到明显变快，优先把中段上火 250℃ 降到 235–240℃</td>
+    <td><span class="tag amber">推测</span></td>
+  </tr>
+  <tr>
+    <td>表面失水 / 结皮</td>
+    <td>时间缩短约 18%，失水总量同步减少约 18% → <strong>对结皮略有利</strong></td>
+    <td><span class="tag green">机制直接</span></td>
+  </tr>
+  <tr>
+    <td>入炉急胀</td>
+    <td>面团温度高 2.5℃，理论上"冷面团急胀更好"这一效应略减弱；但 2.5℃ 相对 250℃ 炉温可忽略，<strong>影响很小</strong></td>
+    <td><span class="tag amber">推测</span></td>
+  </tr>
+</table>
+
+<h3>5.5 6.5℃ 落地时的三个实操问题</h3>
+
+<div class="card">
+  <h3>① 先确认冰箱能不能稳在 6.5℃</h3>
+  <p>家用冰箱多是固定档位，未必有 6.5℃ 这一档。若靠"换层 / 换抽屉"凑温度，<strong>必须把温度计放在那个位置实测</strong>——同层不同位置差 2–4℃ 很常见。而且要<strong>连测 12 小时看平均值</strong>，不是看一眼。</p>
+
+  <h3>② 波动不影响按平均值估算</h3>
+  <p>压缩机循环让箱内空气温度波动 ±2–3℃，开门还会再抬 2–4℃。但<strong>面团热惯性大，面团中心温度的波动远小于空气温度</strong>，所以按平均值折算时长是可接受的。反过来说：<strong>不要按 6.5℃ 精确算到 0.5 小时</strong>——这个模型本来就没有那个精度。</p>
+
+  <h3>③ 一次烤两只，两只放同一位置</h3>
+  <p>否则两只经历温度不同，会出现"一只到位、一只没到位"。</p>
+</div>
+
+<h3>5.6 6.5℃ 下的二发终点判据</h3>
+
+<p>冷面团硬，<strong>戳洞测试不准</strong>。改用这四条，按可靠性排序：</p>
+
+<table>
+  <tr><th style="width:24%">判据</th><th>到位</th><th>过头</th></tr>
+  <tr><td><strong>体积</strong></td><td>篮内涨到约 <strong>1.5–1.7 倍</strong>，接近篮口</td><td>明显膨出篮口、边缘外溢</td></tr>
+  <tr><td><strong>指压（侧面）</strong></td><td>凹陷<strong>缓慢、不完全回弹</strong></td><td>完全不回弹，按下去不动</td></tr>
+  <tr><td><strong>表面张力</strong></td><td>饱满绷紧，有小气泡</td><td>发皱、开始塌、出现腰线</td></tr>
+  <tr><td><strong>轻晃</strong></td><td>整体晃动，形状跟得上</td><td>晃一下像液体、形状跟不上</td></tr>
+</table>
+
+<div class="hl">
+  <p><strong>如果你必须保持 14 小时</strong>（作息固定），下面三个旋钮<strong>只动一个</strong>：</p>
+  <p style="margin-top:8px">① <strong>缩短时长（首选）</strong>：6.5℃ 做 11–12 h，其他一切不动。<br>
+  ② <strong>降种量</strong>：鲁邦种 20% → 约 16–17%，把产气速率拉回 4℃ 的水平（量级估算，需重新配平补加水）。<br>
+  ③ <strong>一发少发一点</strong>：小样瓶从 +50–60% 收到 +40–45%。<strong>不推荐</strong>——一发已经是你流程的短板。</p>
+</div>
+
+<div class="ok">
+  <p><strong>顺带说一句</strong>：你现在的 <strong>4℃ 14 小时本身没有问题</strong>，正落在建议区间（10–14 h）的上沿。改成 6.5℃ 的唯一好处是<strong>时间更短、作息更好排</strong>，代价是容错窗口同比缩窄约 18%。<strong>没有变好，只是变快。</strong></p>
+</div>
+
+<h2>六、两个基准：水合率 vs 含水率</h2>
+
+<p>这两个量经常被混用，但分母不同，用途也不同。</p>
+
+<table>
+  <tr><th style="width:24%">名称</th><th style="width:30%">算式</th><th style="width:16%">本配方值</th><th>用途</th></tr>
+  <tr>
+    <td><strong>水合率</strong><br><span style="color:#888780;font-size:12px">烘焙百分比</span></td>
+    <td>水 ÷ <strong>粉</strong><br>380 ÷ 550</td>
+    <td><strong>69.1%</strong></td>
+    <td>配方设计、面粉吸水量匹配、跨配方比较。<strong>看面团软硬就用这个</strong></td>
+  </tr>
+  <tr>
+    <td><strong>含水率</strong><br><span style="color:#888780;font-size:12px">质量分数</span></td>
+    <td>水 ÷ <strong>总面团</strong><br>380 ÷ 940</td>
+    <td><strong>40.4%</strong></td>
+    <td>传热计算——算比热容 <code>c</code>、升温需热 <code>Q=m·c·ΔT</code>、蒸发需热 <code>Q=m水×2260</code>。<strong>这些公式里的 m 都是总质量</strong></td>
+  </tr>
+</table>
+
+<p>换算关系（忽略盐）：</p>
+
+<p><code>含水率 = 水合率 ÷ (100% + 水合率)</code></p>
+
+<p>代入验证：<code>69.1 ÷ 169.1 = 40.9%</code>（不含盐）；含盐时分母再加 1.8% → <code>380 ÷ 940 = 40.4%</code>。两者吻合。</p>
+
+<div class="hl">
+  <p><strong>为什么要专门讲这个</strong>：烘烤热量账里的"m"必须是总面团质量，"c"由含水率决定。如果拿面粉做分母去算，数值会凭空高出 70%，整个热量估算就废了。</p>
+</div>
+
+<h2>七、烘烤：21 分钟与中心温度</h2>
+
+<h3>6.1 热量账（口径统一后重算）</h3>
+
+<table>
+  <tr><th style="width:34%">项目</th><th style="width:26%">数值</th><th>说明</th></tr>
+  <tr><td>升温（5℃ → 96℃）</td><td>≈ 110 kJ</td><td>470 g × 2.6 J/(g·K) × 90 K</td></tr>
+  <tr><td>蒸发（失重 6–10%）</td><td>≈ 63–106 kJ</td><td>28–47 g 水 × 2260 J/g</td></tr>
+  <tr><td><strong>合计需热</strong></td><td><strong>≈ 180–240 kJ</strong></td><td>—</td></tr>
+  <tr><td>21 分钟（1260 s）平均功率需求</td><td>140–190 W</td><td>—</td></tr>
+</table>
+
+<p>结论：<strong>卡在临界、没有安全余量</strong>。但这只是量级估算——家用炉的传热系数没法精确获得，误差可能到 ±50%。所以唯一可靠的判据只能是探针中心温度。</p>
+
+<div class="ok">
+  <p><strong>目标中心温度：96–99℃</strong></p>
+  <p style="margin-top:8px">核心温度 91–93℃ 时面筋才完全凝固定型；到 96℃ 以上淀粉才充分糊化、组织才稳定。<strong>面包变棕比中心熟透快得多</strong>——你上一炉 21 分钟表皮已经偏深，说明看颜色会误导你往短了烤。买一支探针温度计，插到面包正中心（不是侧面），读数稳定后再取。</p>
+</div>
+
+<h2>八、下一炉改动清单</h2>
+
+<div class="card">
+  <h3>只改这五件事，一次一个变量</h3>
+  <ol style="margin-bottom:0">
+    <li><strong>鲁邦种 100 g → 120–125 g</strong>（21–23%），补加水同减至 327 g &nbsp;<span class="tag green">首选</span></li>
+    <li><strong>折叠改 30 / 70 / 110 / 150 分钟</strong>，第 4 次折完留 2.5 小时静置</li>
+    <li><strong>冷藏二发 9 h → 12 h</strong>（4℃ 基准；若改 6.5℃ 则为 <strong>11–12 h</strong>，见第五章）；覆盖改成"连篮套袋"</li>
+    <li><strong>盐 10 g → 11 g</strong>（占总粉 1.82% → 2.0%）</li>
+    <li><strong>买探针温度计</strong>，目标 96–99℃；烤到 12–15 分钟掉头一次</li>
+  </ol>
+  <p style="margin-top:12px;color:#5F5E5A;font-size:13px">若暂时不想动配方，把第 1 条换成"一发延到 6.5–7 h"同样可行。</p>
+</div>
+
+<div class="hl">
+  <p><strong>水合先不要动。</strong>把发酵节奏跑顺了再推水。一次只改一个变量，你才分得清是谁起的作用。想推的时候：每提高 1 个真水合点，本批（500 g 主粉）加 <strong>5.5 g</strong> 水；<strong>一次只加 2 个点</strong>。</p>
+</div>
+
+<h3>7.1 待补数据</h3>
+
+<ul class="chk">
+  <li><strong>第 1 次折叠是在出缸后多少分钟？</strong>（决定折叠排法是整体前移还是后移）</li>
+  <li><strong>喂种的室温和水温</strong>（2 小时到 2 倍偏快，想确认是不是温度偏高）</li>
+  <li><strong>打面打了多久？出缸时面团能拉出薄膜吗？</strong></li>
+  <li>小样瓶的容器形状与摆放位置</li>
+  <li>下一炉的中心温度读数</li>
+  <li>如果可能，补一张面包<strong>侧面或 45° 角</strong>的照片——耳朵是三维特征，俯视图只能看到"翻片躺下"，看不出立起的高度</li>
+</ul>
+
+<h2>九、本轮知识点回收</h2>
+
+<table>
+  <tr><th style="width:30%">知识点</th><th>要点</th></tr>
+  <tr><td><strong>折叠的双重作用</strong></td><td>① 排气并重新分配气室；② 拉伸建立面筋张力。排气后需要时间重建，所以末次折叠要离整形 1.5–2 h</td></tr>
+  <tr><td><strong>折叠间隔</strong></td><td>30–40 分钟。太短 = 反复打断产气；太长 = 大气泡合并后被不均匀压碎，留下大气孔</td></tr>
+  <tr><td><strong>折叠手法选择</strong></td><td>中低水合（≤73%）用<strong>三折</strong>：能立住、好转移，拉伸反馈明确。高水合（≥76%）用<strong>卷折</strong>：面团软到没法铲出盆，不用转移是它唯一且决定性的优势。<strong>信封折（四边折）排气最狠，四向最均衡，只适合需要硬拉张力的场合</strong></td></tr>
+  <tr><td><strong>折叠方向的轮换</strong></td><td>每次折叠把面团转 90°。4 次正好覆盖四个方向——否则只有单向被强化，烘焙膨胀时朝弱的方向跑</td></tr>
+  <tr><td><strong>加种的两个副作用</strong></td><td>① 水合率被动抬升（种里一半是水）；② pH 下降 → 蛋白酶活性上升 → 面筋变弱</td></tr>
+  <tr><td><strong>鲁邦种的活性窗口</strong></td><td>峰值 ±30 分钟。过峰值的种表面有气但产气效率大幅下降，加量只能部分补偿</td></tr>
+  <tr><td><strong>喂养比例与速度</strong></td><td>1:1:1 = 33% 接种率，24℃ 下通常 3–5 小时到 2 倍；1:5:5 = 14%，需 7–9 小时。比例越激进，到峰值越快、窗口越窄。<strong>冷藏 2–3 天后首喂要加 1.3–1.5 倍时间</strong>（10-03 实测：3 年老种冷藏 3 天首喂，5 h 仍在上升，峰值约 5.5–6.5 h）</td></tr>
+  <tr><td><strong>冷藏对菌相的影响</strong></td><td>乳酸菌比酵母更耐低温，长期冷藏使菌相偏酸、酵母占比下降</td></tr>
+  <tr><td><strong>结皮的成因与后果</strong></td><td>干冷环境 + 覆盖不严 → 表面脱水固化；后果是限制急胀（开口不平）+ 上色深斑</td></tr>
+  <tr><td><strong>水合率 vs 含水率</strong></td><td>分母不同（粉 vs 总面团）。配方看前者，传热计算看后者</td></tr>
+  <tr><td><strong>冷藏二发的温度—时长换算</strong></td><td>速率比 = Q10^(ΔT÷10)，Q10 ≈ 2.2。<strong>温度每升高 1℃，时长减约 8%</strong>（× 0.92）；4℃ → 6.5℃ 时长 × 0.82（14 h → 11–12 h）。<strong>温度越高，容错窗口同比缩窄</strong></td></tr>
+  <tr><td><strong>低温的两段含义</strong></td><td>低温<strong>一发</strong>（bulk retard，整形前）= 面团继续整体发育；低温<strong>二发</strong>（final proof retard，整形后）= 缓慢充气 + 定型。二者作用不同，换算与判据也不同</td></tr>
+  <tr><td><strong>中心温度判据</strong></td><td>96–99℃。91–93℃ 面筋才凝固定型；颜色变棕远早于中心熟透</td></tr>
+  <tr><td><strong>一次只改一个变量</strong></td><td>这是能持续优化的唯一方法。同时改三处，成功了也不知道是哪处的功劳</td></tr>
+</table>
+
+<footer>
+  <p>数据来源：用户 2026-09-30 实炉记录（配方、温度、时长均为实测）；面粉参数见《铁塔法印版配方与工艺手册》第一章。第五章（冷藏二发温度—时长换算）为 2026-10-04 补录。</p>
+  <p>免责说明：面粉批次、室温湿度、酵种状态、烤箱性能都会影响结果，本文档为基于现有数据的分析，请以面团实际状态为准。</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酸种欧包发酵诊断报告（修正版）</title>
+<style>
+  :root{
+    --bg:#FAF9F5;
+    --card:#FFFFFF;
+    --line:rgba(0,0,0,.12);
+    --line-strong:rgba(0,0,0,.28);
+    --tx:#2C2C2A;
+    --tx2:#5F5E5A;
+    --tx3:#888780;
+    --red:#A32D2D;
+    --red-bg:#FCEBEB;
+    --amber:#854F0B;
+    --amber-bg:#FAEEDA;
+    --green:#3B6D11;
+    --green-bg:#EAF3DE;
+    --teal:#0F6E56;
+    --teal-bg:#E1F5EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:56px 28px 80px;}
+  header{border-bottom:1px solid var(--line-strong);padding-bottom:24px;margin-bottom:36px;}
+  .kicker{font-size:13px;color:var(--tx3);letter-spacing:.08em;margin:0 0 10px;}
+  h1{font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em;}
+  .sub{font-size:14px;color:var(--tx2);margin:0;}
+  h2{
+    font-size:17px;font-weight:600;margin:44px 0 14px;
+    padding-left:12px;border-left:3px solid var(--tx);
+  }
+  h3{font-size:15px;font-weight:600;margin:26px 0 8px;}
+  p{margin:0 0 14px;}
+  ul,ol{margin:0 0 16px;padding-left:22px;}
+  li{margin-bottom:7px;}
+  strong{font-weight:600;}
+  code{
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:13px;background:rgba(0,0,0,.05);
+    padding:1px 5px;border-radius:4px;
+  }
+  table{
+    width:100%;border-collapse:collapse;margin:16px 0 20px;
+    font-size:14px;background:var(--card);
+  }
+  th,td{
+    border:1px solid var(--line);
+    padding:10px 12px;text-align:left;vertical-align:top;
+  }
+  th{background:rgba(0,0,0,.035);font-weight:600;font-size:13px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:20px 22px;margin:20px 0;
+  }
+  .card p:last-child{margin-bottom:0;}
+  .tag{
+    display:inline-block;font-size:12px;font-weight:500;
+    padding:2px 9px;border-radius:20px;margin-right:6px;
+    vertical-align:1px;
+  }
+  .tag.red{background:var(--red-bg);color:var(--red);}
+  .tag.amber{background:var(--amber-bg);color:var(--amber);}
+  .tag.green{background:var(--green-bg);color:var(--green);}
+  .tag.teal{background:var(--teal-bg);color:var(--teal);}
+  .quote{
+    border-left:3px solid var(--line-strong);
+    padding:2px 0 2px 16px;margin:16px 0;
+    color:var(--tx2);font-size:14px;
+  }
+  .fix{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:0;overflow:hidden;margin:20px 0;
+  }
+  .fix .row{
+    display:grid;grid-template-columns:1fr 1fr;
+    border-bottom:1px solid var(--line);
+  }
+  .fix .row:last-child{border-bottom:none;}
+  .fix .cell{padding:14px 18px;}
+  .fix .cell:first-child{border-right:1px solid var(--line);}
+  .fix .lab{font-size:12px;color:var(--tx3);margin:0 0 5px;}
+  .fix .val{margin:0;font-size:14px;}
+  .bad{color:var(--red);}
+  .good{color:var(--green);}
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .metric .k{font-size:12px;color:var(--tx3);margin:0 0 6px;}
+  .metric .v{font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em;}
+  .metric .n{font-size:12px;color:var(--tx3);margin:4px 0 0;}
+  footer{
+    margin-top:56px;padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:12px;color:var(--tx3);
+  }
+  @media (max-width:640px){
+    .wrap{padding:32px 18px 56px;}
+    .fix .row{grid-template-columns:1fr;}
+    .fix .cell:first-child{border-right:none;border-bottom:1px solid var(--line);}
+    .metrics{grid-template-columns:1fr;}
+    table{font-size:13px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">面包发酵诊断报告 · 修正版</p>
+  <h1>酸种欧包（85% 水合 / 10% 黑麦）发酵问题诊断</h1>
+  <p class="sub">基于用户补充的完整工艺参数修订 &nbsp;·&nbsp; 2026-09-25</p>
+</header>
+
+<h2>一、结论摘要</h2>
+
+<div class="metrics">
+  <div class="metric">
+    <p class="k">一发名义时长</p>
+    <p class="v">10 小时</p>
+    <p class="n">其中仅 2 小时在 24℃</p>
+  </div>
+  <div class="metric">
+    <p class="k">等效发酵量</p>
+    <p class="v">约 3.6 小时</p>
+    <p class="n">折算至 24℃ 基准</p>
+  </div>
+  <div class="metric">
+    <p class="k">有效成筋蛋白</p>
+    <p class="v">约 10.7%</p>
+    <p class="n">配 85% 水合偏高</p>
+  </div>
+</div>
+
+<div class="card">
+  <p><span class="tag red">主因</span><strong>面粉强度与 85% 水合不匹配。</strong>鸟越纯芯 11.9% 蛋白、灰分 0.37%，是日式高级吐司粉；叠加 10% 黑麦后有效成筋蛋白仅约 10.7%，比常规高筋粉低一整档，兜不住 85% 的水。</p>
+  <p><span class="tag red">主因</span><strong>一发被冷藏切成四段，两次折叠在 4℃ 冷面团上进行。</strong>名义 10 小时实际等效仅约 3.6 小时的 24℃ 发酵；冷面团折叠会撕裂面筋并压垮气室结构，折完只回温 1 小时就整形，气室来不及重建。</p>
+  <p><span class="tag amber">次因</span><strong>盐 1.6% 偏低。</strong>长时间发酵 + 黑麦高蛋白酶活性下，对蛋白酶抑制不足，面筋强度受损。</p>
+  <p><span class="tag green">已澄清</span><strong>蒸汽做法正确，无需修改。</strong>Hamelman 标准为总注入 4–6 秒，你的 5 秒正中区间；多加蒸汽反而会造成扁平、厚皮、割口不翻。</p>
+</div>
+
+<h2>二、完整工艺参数（含补充信息）</h2>
+
+<table>
+  <tr><th style="width:32%">项目</th><th>参数</th></tr>
+  <tr><td>面粉</td><td>90% 鸟越純芯（粗蛋白 11.9%、灰分 0.37%）+ 10% 黑麦粉</td></tr>
+  <tr><td>含水量</td><td>85%（已包含鲁邦种中的水）</td></tr>
+  <tr><td>鲁邦种</td><td>30%，使用前涨至 2.5 倍，不确定是否已开始回落</td></tr>
+  <tr><td>盐</td><td>1.6%</td></tr>
+  <tr><td>水合</td><td>12 小时，<strong>冷藏进行</strong></td></tr>
+  <tr><td>打面</td><td>打面机，出缸面温 23.8℃</td></tr>
+  <tr><td>一发</td><td>出缸整理 → 室温 60 min → 折叠 1 → 冷藏 3 h → 折叠 2 → 冷藏 5 h → 折叠 3 → 室温 1 h → 预整形</td></tr>
+  <tr><td>一发环境</td><td>室温 24℃ / 冷藏 4℃</td></tr>
+  <tr><td>一发终点</td><td>目视约 2 倍</td></tr>
+  <tr><td>预整形</td><td>静置 20 分钟</td></tr>
+  <tr><td>二发</td><td>入篮冷藏 12 小时（4℃）</td></tr>
+  <tr><td>面团重量</td><td>500 g / 个</td></tr>
+  <tr><td>烘烤</td><td>上下 300℃ + 入炉注入 5 秒蒸汽，烤 5 min → 上 250 / 下 270，15 min → 上 250 / 下 230 + 开风门，3 min（共 23 min）</td></tr>
+</table>
+
+<h2>三、上一轮判断的修正</h2>
+
+<div class="fix">
+  <div class="row">
+    <div class="cell">
+      <p class="lab">上一轮判断</p>
+      <p class="val bad">室温水合 12 小时导致酶解、面筋被削弱</p>
+    </div>
+    <div class="cell">
+      <p class="lab">修正后</p>
+      <p class="val good">撤回。实为 4℃ 冷藏水合，酶活被抑制到室温的 1/5–1/10；且纯芯灰分仅 0.37%，属极精制低酶面粉。此条基本不成立。</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="cell">
+      <p class="lab">上一轮判断</p>
+      <p class="val bad">蒸汽仅 5 秒 = 严重不足，欧包需 15–20 分钟持续蒸汽</p>
+    </div>
+    <div class="cell">
+      <p class="lab">修正后</p>
+      <p class="val good">撤回并致歉。Hamelman《Bread》原文为「总体 4–6 秒通常是合适的」，5 秒正中标准区间。且过度蒸汽会造成扁平、厚韧皮、割口不翻。</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="cell">
+      <p class="lab">上一轮判断</p>
+      <p class="val bad">23 分钟偏短，中心很可能没烤透（按约 1kg 估算）</p>
+    </div>
+    <div class="cell">
+      <p class="lab">修正后</p>
+      <p class="val good">修正。实际 500g/个，23 分钟处于「临界但可能够」区间，需要中心温度确认，不宜下断言。</p>
+    </div>
+  </div>
+</div>
+
+<h2>四、蒸汽用量：依据与结论</h2>
+
+<p>Hamelman《Bread: A Baker's Book of Techniques and Recipes》（第 3 版）「STEAM」一节：</p>
+
+<div class="quote">
+  入炉前先向炉内注入一次蒸汽，让面包进入湿润环境；入炉后再补一次。如果炉子的蒸汽注入是有效的，<strong>总体上大约 4 到 6 秒的蒸汽量通常是合适的</strong>。……过度蒸汽是相当常见的错误……后果是<strong>扁平的面包、厚而韧的皮、以及不会翻开的割口</strong>。
+</div>
+
+<ul>
+  <li>蒸汽的计量单位是<strong>总注入秒数</strong>，不是持续时间。5 秒注入量属于标准做法。</li>
+  <li>蒸汽注入后靠<strong>关闭风门把湿气留在炉内</strong>，让炉膛在前 10 分钟左右保持湿润——这才是「持续」的实际含义。你的流程中风门只在最后 3 分钟打开，做法正确。</li>
+  <li>Hamelman 另特别指出：<strong>面团略微发过头时反而应减少蒸汽</strong>，让表皮更快结皮以防摊平。你的 5 秒方向正确，增加蒸汽不会改善开耳。</li>
+</ul>
+
+<h2>五、23 分钟是否足够（热量估算）</h2>
+
+<h3>需求侧</h3>
+<ul>
+  <li>500g 面团、85% 水合 → 含水约 228g（占面团质量 46%）</li>
+  <li>发酵后体积约 770 cm³，整形后约 12–13 cm 宽、8–9 cm 高 → 中心到表皮约 4–4.5 cm</li>
+  <li>中心从 4℃ 升至 96℃：500 g × 2.7 J/(g·K) × 92℃ ≈ <strong>124 kJ</strong></li>
+  <li>蒸发约 60 g 水：60 g × 2260 J/g ≈ <strong>136 kJ</strong></li>
+  <li>合计约 <strong>260–300 kJ</strong></li>
+</ul>
+
+<h3>供给侧</h3>
+<ul>
+  <li>250℃ 石板烘烤，表面积约 0.05 m²，表面热流密度约 3000–6000 W/m² → 功率约 150–300 W</li>
+  <li>23 分钟（1380 秒）可提供约 <strong>200–400 kJ</strong></li>
+</ul>
+
+<p><strong>结论：23 分钟正好卡在临界线上。</strong>理论上可能刚好够，但没有任何安全余量。你是从 4℃ 冷藏直接入炉，中心需要多升 20℃，比常温入炉更吃时间；前 5 分钟 300℃ 起手补回了一部分。最终是否足够，取决于炉子实际热效率、石板蓄热与是否启用对流。</p>
+
+<p><strong>唯一可靠的判据：中心温度 ≥96℃，理想 97–99℃（205–210℉）。</strong>出炉前从侧面插入探针至最厚处中心，读数低于 93℃ 即回炉，200℃ 再烤数分钟无副作用。</p>
+
+<h2>六、若中心温度不足会怎样：淀粉酶攻击</h2>
+
+<ol>
+  <li>淀粉糊化需「温度 + 水」同时到位。小麦淀粉约 60–70℃ 开始糊化、85℃ 以上较完全；<strong>黑麦淀粉糊化温度更低（50–60℃ 起）</strong>。</li>
+  <li><strong>α-淀粉酶在糊化温度区间活性最高</strong>，且黑麦的 α-淀粉酶含量高、耐热。若中心长时间停留在 70–90℃ 且未冲破 96℃，酶会持续把已糊化的淀粉切成糊精——即<strong>淀粉酶攻击（starch attack）</strong>。糊精化不可逆，出炉后无法挽救，组织会发亮、发黏、按压回粘。</li>
+  <li><strong>缓解因素：</strong>酸性能抑制 α-淀粉酶，这是传统黑麦面包必须使用酸种的根本原因。本配方含 30% 鲁邦种且总发酵 20 余小时，酸度应足够，风险显著降低——这也与切面「偏湿但不糊」的观察相符。</li>
+  <li><strong>更常见的误判来源：未完全冷却即切片。</strong>出炉后 1–2 小时内中心仍在 60–80℃，组织继续定型；此时切片会把柔软孔壁压扁涂抹，呈现「发黏 + 压塌」。建议等待至少 1.5–2 小时、中心回温后再切。</li>
+</ol>
+
+<h3>自查方法</h3>
+<ul>
+  <li>切面出现「发亮发湿、按压回粘、刀口糊成一条」的区域 → 更可能是真未烤透</li>
+  <li>切片均匀、仅软塌被压扁、回烤后明显改善 → 更可能是冷却不足</li>
+</ul>
+
+<h2>七、调整方案</h2>
+
+<table>
+  <tr><th style="width:22%">环节</th><th style="width:32%">现在的做法</th><th>建议调整</th></tr>
+  <tr><td>面粉</td><td>90% 纯芯（11.9%）+ 10% 黑麦</td><td>想保持 85% 水合，建议换蛋白 13%+ 的粉；否则把水合降到 <strong>78–80%</strong></td></tr>
+  <tr><td>水合</td><td>冷藏 12 小时</td><td><strong>保留</strong>（冷藏水合合理）；但<strong>水合时即加盐</strong>，或缩短至 4–8 小时</td></tr>
+  <tr><td>盐</td><td>1.6%</td><td>提高到 <strong>2.0%</strong></td></tr>
+  <tr><td>鲁邦种</td><td>30%，涨至 2.5 倍使用</td><td>降至 <strong>20%</strong>；在涨至 <strong>2 倍左右、尚未回落</strong>时使用</td></tr>
+  <tr><td>出缸面温</td><td>23.8℃</td><td><strong>保持</strong>，此项理想</td></tr>
+  <tr><td>一发温度策略</td><td>1h 室温 + 8h 冷藏 + 1h 室温</td><td>改为<strong>连续 24℃ 暖温一发</strong>，把冷藏留给二发</td></tr>
+  <tr><td>折叠</td><td>3 次，其中 2 次在 4℃ 冷面团上</td><td><strong>4–6 次，全部在室温下做</strong>，间隔 30–40 分钟，覆盖前 3–4 小时。<strong>不要折叠冷面团</strong></td></tr>
+  <tr><td>一发终点</td><td>目视约 2 倍</td><td>体积 <strong>+50–70%（1.5–1.75 倍）</strong>；用标线或小样瓶判断</td></tr>
+  <tr><td>冷藏二发</td><td>12 小时</td><td>10–14 小时；<strong>覆盖严密防表面结皮</strong></td></tr>
+  <tr><td>蒸汽</td><td>入炉 5 秒</td><td><strong>保持不动</strong>，符合 4–6 秒标准</td></tr>
+  <tr><td>烘烤</td><td>300→250/270→250/230，共 23 min</td><td>曲线可保留；<strong>出炉前测中心温度</strong>，不足则延长至 27–32 分钟</td></tr>
+  <tr><td>割包 / 开耳</td><td>同炉仅一只略微开耳</td><td>冷藏密封防结皮；割 0.5–1 cm 深、30–45° 斜切，锋利刀片一刀完成</td></tr>
+  <tr><td>冷却</td><td>—</td><td>出炉后<strong>至少 1.5–2 小时</strong>、中心回温后再切</td></tr>
+</table>
+
+<h2>八、参考依据</h2>
+<ul>
+  <li>Jeffrey Hamelman,《Bread: A Baker's Book of Techniques and Recipes》第 3 版，STEAM 章节：蒸汽总注入量 4–6 秒；过度蒸汽导致扁平、厚韧皮、割口不翻</li>
+  <li>酸种乡村面包中心温度通行标准 96–99℃ / 205–210℉；低于此易产生发黏、致密、塌陷</li>
+  <li>黑麦 α-淀粉酶与 starch attack：需依靠酸化（酸种）抑制；黑麦戊聚糖含量 6–9%，小麦仅 2–3%，会抢夺水分并干扰面筋交联</li>
+  <li>鳥越製粉「純芯」规格：粗蛋白 11.9%、灰分 0.37%，定位为高级吐司用粉</li>
+  <li>面筋蛋白有效含量折算：11.9% × 90% ≈ 10.7%（黑麦蛋白为 secalin，不形成弹性面筋）</li>
+  <li>酵母活性温度系数 Q10 ≈ 2.2；4℃ 的相对发酵速率约为 24℃ 的 1/5</li>
+</ul>
+
+<footer>
+  本报告基于用户提供的工艺参数与成品切面照片分析，并结合经典烘焙理论推导，仅供参考。面包发酵受温度、湿度、面粉批次、酵母状态等多种因素影响，最终请以实际面团状态与操作记录为准。图片识别准确度有限。
+</footer>
+
+</div>
+</body>
+</html>
