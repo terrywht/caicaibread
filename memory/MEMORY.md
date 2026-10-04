@@ -47,6 +47,21 @@
 | 单只生重 | 470 g × 2 |
 | 铁塔法印参数 | 蛋白 11.9%、灰分 0.44%、W≈200、P/L 0.7、水合工作区间 68–75% |
 
+## 可直接复用的技术工具
+
+**Chrome headless 渲染 SVG/HTML → PNG**（本机无 rsvg/inkscape/magick）
+
+```bash
+# ⚠️ 非 ASCII 路径会静默失败（报 written 但文件不在）→ 先复制成 ASCII 名
+cp 图.svg _x.svg
+# 用 HTML wrapper 包一层（img 指定像素尺寸），再截图
+chrome.exe --headless --disable-gpu --screenshot="<abs-ascii>.png" \
+  --window-size=2200,1400 --hide-scrollbars "<abs-ascii>.html"
+```
+
+- 本机 Python **无 numpy**：图像裁边用纯 PIL 逐行/逐列扫描背景色差异
+- 生成的标注图统一先渲染 → 裁掉空白边（content + 36px padding）→ 缩到 1400px 宽
+
 ## 可直接复用的换算工具
 
 **冷藏发酵的温度—时长换算（Q10 法）**
@@ -125,7 +140,7 @@
 | **`git commit`** | 同上，可以一起做 |
 | **`git push`** | ⛔ **只在①用户明确说 push / ②累计 10 问未 push** 时执行 |
 
-**必须维护一个"未 push 问题计数"**。当前：**第 3 问**（10-04 第八轮：① 炉诊断参数 → ② 方位第二次纠正 → ③ 第二只切面）。
+**必须维护一个"未 push 问题计数"**。当前：**第 4 问**（10-04 第八轮：① 炉诊断参数 → ② 方位第二次纠正 → ③ 第二只切面 → ④ 完美横截面对照）。
 
 ## 本轮（10-04 第八轮）确立的工艺认知
 

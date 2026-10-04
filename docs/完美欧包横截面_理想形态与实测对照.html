@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完美欧包横截面 · 理想形态与实测对照</title>
+<style>
+  :root{
+    --bg:#FAF9F5;--card:#FFFFFF;--line:rgba(0,0,0,.12);--line2:rgba(0,0,0,.28);
+    --tx:#2C2C2A;--tx2:#5F5E5A;--tx3:#888780;
+    --red:#A32D2D;--red-bg:#FCEBEB;--amber:#854F0B;--amber-bg:#FAEEDA;
+    --green:#3B6D11;--green-bg:#EAF3DE;--blue:#185FA5;--blue-bg:#E6F1FB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:56px 28px 80px}
+  header{border-bottom:1px solid var(--line2);padding-bottom:24px;margin-bottom:36px}
+  .kicker{font-size:13px;color:var(--tx3);letter-spacing:.08em;margin:0 0 10px}
+  h1{font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+  .sub{font-size:14px;color:var(--tx2);margin:0}
+  h2{font-size:18px;font-weight:600;margin:48px 0 14px;padding-left:12px;border-left:3px solid var(--tx)}
+  h3{font-size:15px;font-weight:600;margin:26px 0 8px}
+  p{margin:0 0 14px}
+  ul,ol{margin:0 0 16px;padding-left:22px}
+  li{margin-bottom:7px}
+  strong{font-weight:600}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;
+    background:rgba(0,0,0,.05);padding:1px 5px;border-radius:4px}
+  table{width:100%;border-collapse:collapse;margin:16px 0 20px;font-size:14px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:rgba(0,0,0,.035);font-weight:600;font-size:13px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:20px 0}
+  .card p:last-child{margin-bottom:0}
+  .card h3{margin-top:0}
+  .tag{display:inline-block;font-size:12px;font-weight:500;padding:2px 9px;border-radius:20px;margin-right:6px;vertical-align:1px}
+  .tag.red{background:var(--red-bg);color:var(--red)}
+  .tag.amber{background:var(--amber-bg);color:var(--amber)}
+  .tag.green{background:var(--green-bg);color:var(--green)}
+  .tag.blue{background:var(--blue-bg);color:var(--blue)}
+  .hl{background:var(--amber-bg);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .hl p:last-child{margin-bottom:0}
+  .ok{background:var(--green-bg);border-left:3px solid var(--green);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .ok p:last-child{margin-bottom:0}
+  .fix{background:var(--red-bg);border-left:3px solid var(--red);padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:14px}
+  .fix p:last-child{margin-bottom:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+  .two .card{margin:0}
+  figure{margin:22px 0}
+  figure img{width:100%;display:block;border:1px solid var(--line);border-radius:10px}
+  figcaption{font-size:13px;color:var(--tx3);margin-top:8px;text-align:center}
+  .score{width:100%;border-collapse:collapse;font-size:14px;margin:18px 0}
+  .score th{font-size:12.5px}
+  .badge{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:10px;font-weight:500}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--tx3)}
+  @media print{
+    body{background:#fff;font-size:11.5px;line-height:1.65}
+    .wrap{max-width:100%;padding:0}
+    h1{font-size:20px}
+    h2{font-size:15px;margin:26px 0 10px;page-break-after:avoid}
+    h3{font-size:13px;margin:16px 0 6px;page-break-after:avoid}
+    .card,.hl,.ok,.fix{page-break-inside:avoid;padding:12px 14px;margin:12px 0}
+    .two{page-break-inside:avoid}
+    table{page-break-inside:auto;font-size:11.5px}
+    th,td{padding:6px 8px}
+    tr{page-break-inside:avoid}
+    figure{page-break-inside:avoid;margin:14px 0}
+    figure img{border-radius:6px}
+    @page{margin:12mm 11mm}
+  }
+  @media (max-width:640px){
+    .wrap{padding:32px 18px 56px}
+    .two{grid-template-columns:1fr}
+    table{font-size:13px}
+    th,td{padding:8px 9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">知识补充 · 理想形态与实测对照</p>
+  <h1>完美欧包横截面长什么样 —— 以及你离它差多远</h1>
+  <p class="sub">先给"理想形态"的定义与依据，再逐项对照 10-04 这一炉的两只</p>
+</header>
+
+<div class="hl">
+  <p><strong>⚠️ 先声明"完美"这个词的边界</strong></p>
+  <p style="margin-top:8px">"完美横截面"<strong>不是一个绝对标准</strong>，而是<strong>几个可核验的结构特征同时满足</strong>。不同流派（法式乡村包 / 高水合 open crumb / 全麦）追求的外观并不一样——下面给的是<strong>中等水合（69% 左右）法式乡村包</strong>这一类型的目标形态，也就是你这只包所属的类别。</p>
+  <p style="margin-top:8px">另外，"漂亮"与"好吃"不总是同一件事：<strong>气孔过大过亮的切面，常常是发酵偏过 + 水合偏高的产物，风味反而更平淡</strong>。这一条后面还会回来。</p>
+</div>
+
+<h2>一、理想横截面的四个区带</h2>
+
+<figure>
+  <img src="完美欧包横截面_示意图.png" alt="理想欧包横截面分区示意">
+  <figcaption>理想横截面：从顶部到底部的四个区带</figcaption>
+</figure>
+
+<table>
+  <tr><th style="width:16%">区带</th><th style="width:34%">理想形态</th><th>为什么是这样</th></tr>
+  <tr>
+    <td><strong>① 顶部外皮</strong></td>
+    <td>光滑圆弧、完整不塌、有一条厚薄均匀的<strong>耳朵（翻片）</strong></td>
+    <td>面团在烤箱里最后一次急胀（oven spring），把割口整片顶起来，再被炉温定型</td>
+  </tr>
+  <tr>
+    <td><strong>② 上部组织</strong></td>
+    <td>气孔<strong>中小型、大小相近、分布均匀</strong>；孔壁薄、有半透明光泽</td>
+    <td>这里离热源远、受自重挤压小，气室能均匀保留。孔壁"薄而有光"说明面筋延展好、淀粉糊化充分</td>
+  </tr>
+  <tr>
+    <td><strong>③ 中部</strong></td>
+    <td>允许有<strong>少量偏大的不规则开孔</strong>，但必须<strong>分散</strong>、<strong>不连成横向带</strong></td>
+    <td>中部是气室合并（coalescence）最容易发生的区域。<strong>少量是特征，成带才是缺陷</strong></td>
+  </tr>
+  <tr>
+    <td><strong>④ 底部</strong></td>
+    <td>一层<strong>很薄的压缩密实层</strong>（约占切面高度 5–10%），其下是<strong>焦糖色外皮，无焦黑带</strong></td>
+    <td>面团入炉后先受自重压在烤盘上，底部气孔必然被压扁。<strong>薄 = 正常；厚或成带 = 问题</strong></td>
+  </tr>
+</table>
+
+<div class="ok">
+  <p><strong>一句话记住判据：</strong>从顶到底，气孔应该是<strong>「细 → 中 → 粗 → 细」</strong>的连续梯度。<strong>异常只有两种</strong>——底部那层"细"太厚（压过头或发酵不足），或者中间那段"粗"连成了一条横带（气室合并失控）。</p>
+</div>
+
+<h2>二、三个常被误判为"缺陷"的正常特征</h2>
+
+<table>
+  <tr><th style="width:30%">现象</th><th>判断</th></tr>
+  <tr>
+    <td><strong>底部气孔偏大、偏扁平</strong></td>
+    <td><strong>正常。</strong>底部受自重压缩，气孔形状天然偏长。判据是"是否连成一条连续大孔带"，不是"有没有偏大气孔"</td>
+  </tr>
+  <tr>
+    <td><strong>顶部紧贴外皮处一层气孔偏小</strong></td>
+    <td><strong>正常。</strong>那是"皮"的过渡区，任何面包都有</td>
+  </tr>
+  <tr>
+    <td><strong>切面某侧偏密实</strong></td>
+    <td><strong>多半正常</strong>——切的位置偏离中心时，靠外那侧离"皮"近，气孔自然小。判据：<strong>再垂直切一刀，若密实区呈环状包外圈且各方向对称 → 几何效应；只在固定一侧 → 真缺陷</strong></td>
+  </tr>
+</table>
+
+<div class="fix">
+  <p><strong>⚠️ 反过来，也要警惕"为了气孔好看"走偏。</strong></p>
+  <p style="margin-top:8px">气孔特别大、孔壁特别亮的切面（所谓 open crumb），在社交媒体上最受欢迎，但它通常是<strong>高水合（80%+）+ 发酵偏过 + 高筋粉</strong>的组合。<strong>代价是：风味变淡、承托力差、切片易塌、抹酱会漏。</strong></p>
+  <p style="margin-top:8px">你这只包走的是<strong>69% 中水合、法国面包粉、追求风味与结构平衡</strong>的路线。<strong>目标是"均匀、有梯度、无缺陷"，不是"气孔越大越好"。</strong></p>
+</div>
+
+<h2>三、拿这把尺子量你这两只（10-04 炉）</h2>
+
+<table class="score">
+  <tr>
+    <th style="width:22%">评分项</th>
+    <th style="width:24%">理想</th>
+    <th style="width:27%">第一只</th>
+    <th>第二只</th>
+  </tr>
+  <tr>
+    <td><strong>顶部弧面</strong></td>
+    <td>光滑、不塌</td>
+    <td><span class="tag green">达标</span>弧面完整</td>
+    <td><span class="tag green">达标</span>弧面完整</td>
+  </tr>
+  <tr>
+    <td><strong>耳朵</strong></td>
+    <td>整片翻起、有厚度</td>
+    <td><span class="tag green">优秀</span>四炉首次立起</td>
+    <td><span class="tag green">达标</span>略弱于第一只</td>
+  </tr>
+  <tr>
+    <td><strong>上部气孔</strong></td>
+    <td>中小型、均匀</td>
+    <td><span class="tag green">达标</span>细密均匀</td>
+    <td><span class="tag amber">偏中</span>中等气孔，尚可</td>
+  </tr>
+  <tr>
+    <td><strong>中部大气孔</strong></td>
+    <td>少量、分散、不成带</td>
+    <td><span class="tag amber">偏多</span>个别偏大</td>
+    <td><span class="tag red">偏多</span>更多更大的合并孔</td>
+  </tr>
+  <tr>
+    <td><strong>一侧密实带</strong></td>
+    <td>无（或仅几何效应）</td>
+    <td><span class="tag amber">存在</span>范围较小</td>
+    <td><span class="tag red">明显</span>中下部一条横带</td>
+  </tr>
+  <tr>
+    <td><strong>底部压缩层</strong></td>
+    <td>薄，约 5–10% 高</td>
+    <td><span class="tag green">达标</span>偏大但不成带</td>
+    <td><span class="tag amber">偏厚</span>密度更差</td>
+  </tr>
+  <tr>
+    <td><strong>底部外皮</strong></td>
+    <td>焦糖色、无焦黑带</td>
+    <td><span class="tag red">未达标</span>有一圈焦黑带</td>
+    <td><span class="tag red">未达标</span>同样有焦黑带</td>
+  </tr>
+</table>
+
+<div class="card">
+  <h3>对照结论</h3>
+  <ul style="margin-bottom:0">
+    <li><strong>7 项里：第一只 4 项达标 / 3 项待改；第二只 3 项达标 / 4 项待改。</strong></li>
+    <li><strong>两只共同的短板只有一项</strong>——底部焦黑带。这是<strong>烘烤参数</strong>问题，不是发酵问题。</li>
+    <li><strong>中部气孔与密实带的差距主要出现在第二只。</strong>两只同批、同时、同炉，发酵没有本质差别 → 差异只能来自<strong>单只变量</strong>：整形卷紧程度 / 入篮朝向 / 炉内位置。</li>
+    <li><strong>没有一项是"配方"问题。</strong>这一炉配方只改了盐，说明现阶段配方的贡献已经榨干了。</li>
+  </ul>
+</div>
+
+<h2>四、从"接近完美"到"更接近"，改哪一件最划算</h2>
+
+<div class="ok">
+  <p><strong>性价比最高的一步：下火 270 → 245℃，烤盘上移一层，入篮前抖掉底部浮粉。</strong></p>
+  <p style="margin-top:8px">理由：这是<strong>两只共同的、唯一的"未达标"</strong>项，一处改动同时解决两只，且零成本、零风险。其余几项（中部气孔、密实带）都需要先补上"炉内位置 + 卷紧程度"的记录，才能定位到具体原因——<strong>没有记录就改，等于瞎猜</strong>。</p>
+</div>
+
+<table>
+  <tr><th style="width:26%">评分项</th><th style="width:37%">改法</th><th>前置条件</th></tr>
+  <tr>
+    <td><strong>底部焦黑</strong></td>
+    <td>下火 245℃ + 烤盘上移 + 抖底部浮粉</td>
+    <td><span class="tag green">可直接做</span></td>
+  </tr>
+  <tr>
+    <td><strong>中部大气孔</strong></td>
+    <td>折叠加到 4 次，排法 <code>40/80/120/160</code></td>
+    <td><span class="tag amber">建议同时补记录</span></td>
+  </tr>
+  <tr>
+    <td><strong>一侧密实带</strong></td>
+    <td>先垂直方向再切一刀，判断是几何效应还是真缺陷</td>
+    <td><span class="tag blue">先诊断，别急改</span></td>
+  </tr>
+  <tr>
+    <td><strong>两只差异</strong></td>
+    <td>记录两只的炉内位置 / 哪只卷得更紧 / 哪只耳朵更好</td>
+    <td><span class="tag blue">先记录，再归因</span></td>
+  </tr>
+</table>
+
+<h2>五、如果你想要真正"开孔"的切面（可选路线）</h2>
+
+<p>上面这套目标是<strong>中等水合的均匀结构</strong>。如果你哪天想试试大孔洞的视觉效果，那是另一条路线，需要<strong>同时</strong>动三个参数——单独动一个不会有效果：</p>
+
+<table>
+  <tr><th style="width:24%">参数</th><th style="width:26%">当前</th><th>开孔路线</th></tr>
+  <tr><td><strong>水合率</strong></td><td>69.1%</td><td>78–82%（铁塔法印的上限区间）</td></tr>
+  <tr><td><strong>一发程度</strong></td><td>6.5 h</td><td>更充分（体积涨幅更大时才整形）</td></tr>
+  <tr><td><strong>折叠手法</strong></td><td>3 次三折</td><td>更少、更轻柔（避免过度排气）</td></tr>
+</table>
+
+<div class="hl">
+  <p><strong>但我建议先别走这条路。</strong></p>
+  <p style="margin-top:8px">你现在的流程（6.5 h 一发 + 长静置 + 12 h 冷藏二发）<strong>刚刚第一次跑通耳朵</strong>，基线还很新。<strong>先把这条稳定复现 2–3 次，再考虑加变量。</strong>否则一旦开孔失败，你无法判断是水合的问题、还是一发的问题、还是手法的问题。</p>
+  <p style="margin-top:8px">另外从风味上说：<strong>69% 中水合 + 充分冷藏发酵，正是酸种欧包风味最饱满的区间。</strong>盲目推高水合往往是把风味换成了气孔。<strong>"完美"的定义应该由你的口味来定，而不是照片。</strong></p>
+</div>
+
+<footer>
+  <p>本文档为知识补充，依据：用户 2026-10-04 提供的两只切面照片 + 本炉实测参数（鲁邦种 100 g / 盐 11 g / 折叠 3 次间隔 40 min / 末次折后 270 min 整形 / 一发 6.5 h / 二发 6.5℃ 12 h / 烘烤 21 min / 中心温度 98℃）。结构判据参考常见欧包组织判读通则。</p>
+  <p>"理想形态"是<b>该类型面包的目标区间</b>，不是绝对标准；不同流派与个人口味会给出不同答案。气孔大小与分布受面粉批次、水合、发酵程度、整形手法、烘烤曲线多重影响，请以自己面团的真实状态为准。</p>
+</footer>
+
+</div>
+</body>
+</html>
