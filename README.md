@@ -128,7 +128,8 @@ caicaibread/
 | 远端 | `https://github.com/terrywht/caicaibread.git`（公开） |
 | 分支 | `main` |
 | 本地路径 | `D:\Github\caicaibread` |
-| 提交 | 单一整理提交（18 个文件）；历史经过一次重写以清除敏感标识 |
+| 提交 | 历史经过一次重写以清除敏感标识 |
+| 网络 | 直连可用；若用户代理 `127.0.0.1:7890` 开着则更快。**不要写死代理** |
 
 克隆：
 
@@ -142,13 +143,24 @@ git clone https://github.com/terrywht/caicaibread.git
 SRC="C:/Users/Administrator/WorkBuddy/2026-09-25-20-54-53"
 DST="D:/Github/caicaibread"
 cp "$SRC"/酸种欧包*.html "$SRC"/鲁邦种*.html "$DST/docs/"
-cp "$SRC"/成品诊断*.png "$DST/assets/"
+cp "$SRC"/成品诊断*.png "$SRC"/*诊断_*.png "$DST/assets/"
 cp "$SRC"/.workbuddy/memory/*.md "$DST/memory/"
 cd "$DST" && git add -A && git commit -m "更新：<说明>"
 git push
 ```
 
-> 本机推送**必须开着 `127.0.0.1:7890` 代理**（已写进该仓库的 local config）。WorkBuddy 环境变量里的 `61800` 代理对 github.com 是拒绝的。
+> **网络通道**：本仓库的 local config 里**不写死代理**（曾写死 `7890`，结果代理一关就推不上去）。
+> 推送前先探测，端口开就临时挂上，否则直连：
+>
+> ```bash
+> if (echo > /dev/tcp/127.0.0.1/7890) >/dev/null 2>&1; then
+>   git -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 push
+> else
+>   git push
+> fi
+> ```
+>
+> 环境变量里的 `61800`（WorkBuddy 服务代理）对 github.com 是**拒绝**的，不要用。
 
 ---
 
